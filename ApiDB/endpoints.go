@@ -57,63 +57,19 @@ func ProfessorsHandler(w http.ResponseWriter, r *http.Request) {
 			week := make([][]byte, len(days))
 			var professor Professor
 
-			switch len(days) {
-			case 1:
-				rows.Scan(&professor.Id, &professor.Firstname, &professor.Surname, &professor.Patronymic, &professor.Chair,
-					&week[0])
-			case 2:
-				rows.Scan(&professor.Id, &professor.Firstname, &professor.Surname, &professor.Patronymic, &professor.Chair,
-					&week[0], &week[1])
-			case 3:
-				rows.Scan(&professor.Id, &professor.Firstname, &professor.Surname, &professor.Patronymic, &professor.Chair,
-					&week[0], &week[1], &week[2])
-			case 4:
-				rows.Scan(&professor.Id, &professor.Firstname, &professor.Surname, &professor.Patronymic, &professor.Chair,
-					&week[0], &week[1], &week[2], &week[3])
-			case 5:
-				rows.Scan(&professor.Id, &professor.Firstname, &professor.Surname, &professor.Patronymic, &professor.Chair,
-					&week[0], &week[1], &week[2], &week[3], &week[4])
-			case 6:
-				rows.Scan(&professor.Id, &professor.Firstname, &professor.Surname, &professor.Patronymic, &professor.Chair,
-					&week[0], &week[1], &week[2], &week[3], &week[4], &week[5])
+			resPointers := make([]interface{}, len(days)+5)
+			resPointers[0] = &professor.Id
+			resPointers[1] = &professor.Firstname
+			resPointers[2] = &professor.Surname
+			resPointers[3] = &professor.Patronymic
+			resPointers[4] = &professor.Chair
+			for i := 0; i < len(days); i++ {
+				resPointers[i+5] = &week[i]
 			}
 
-			for ind, day := range days {
-				switch day {
-				case "monday":
-					err = json.Unmarshal(week[ind], &professor.Week.Monday)
-					if ServerError(err, http.StatusInternalServerError, w) {
-						return
-					}
-				case "tuesday":
-					err = json.Unmarshal(week[ind], &professor.Week.Tuesday)
-					if ServerError(err, http.StatusInternalServerError, w) {
-						return
-					}
-				case "wednesday":
-					err = json.Unmarshal(week[ind], &professor.Week.Wednesday)
-					if ServerError(err, http.StatusInternalServerError, w) {
-						return
-					}
-				case "thursday":
-					err = json.Unmarshal(week[ind], &professor.Week.Thursday)
-					if ServerError(err, http.StatusInternalServerError, w) {
-						return
-					}
-				case "friday":
-					err = json.Unmarshal(week[ind], &professor.Week.Friday)
-					if ServerError(err, http.StatusInternalServerError, w) {
-						return
-					}
-				case "saturday":
-					err = json.Unmarshal(week[ind], &professor.Week.Saturday)
-					if ServerError(err, http.StatusInternalServerError, w) {
-						return
-					}
-				}
-			}
+			rows.Scan(resPointers...)
 
-			professor.Week.SetIfEmpty()
+			professor.Week.UnmarshalServerWeek(days, week, w)
 
 			professors = append(professors, professor)
 		}
@@ -184,69 +140,20 @@ func ProfessorGetHandler(w http.ResponseWriter, r *http.Request) {
 		for rows.Next() {
 			week := make([][]byte, len(days))
 			var professor Professor
-			switch len(days) {
-			case 1:
-				rows.Scan(&professor.Id, &professor.Firstname, &professor.Surname,
-					&professor.Patronymic, &professor.Chair,
-					&week[0])
-			case 2:
-				rows.Scan(&professor.Id, &professor.Firstname, &professor.Surname,
-					&professor.Patronymic, &professor.Chair,
-					&week[0], &week[1])
-			case 3:
-				rows.Scan(&professor.Id, &professor.Firstname, &professor.Surname,
-					&professor.Patronymic, &professor.Chair,
-					&week[0], &week[1], &week[2])
-			case 4:
-				rows.Scan(&professor.Id, &professor.Firstname, &professor.Surname,
-					&professor.Patronymic, &professor.Chair,
-					&week[0], &week[1], &week[2], &week[3])
-			case 5:
-				rows.Scan(&professor.Id, &professor.Firstname, &professor.Surname,
-					&professor.Patronymic, &professor.Chair,
-					&week[0], &week[1], &week[2], &week[3], &week[4])
-			case 6:
-				rows.Scan(&professor.Id, &professor.Firstname, &professor.Surname,
-					&professor.Patronymic, &professor.Chair,
-					&week[0], &week[1], &week[2], &week[3], &week[4], &week[5])
+
+			resPointers := make([]interface{}, len(days)+5)
+			resPointers[0] = &professor.Id
+			resPointers[1] = &professor.Firstname
+			resPointers[2] = &professor.Surname
+			resPointers[3] = &professor.Patronymic
+			resPointers[4] = &professor.Chair
+			for i := 0; i < len(days); i++ {
+				resPointers[i+5] = &week[i]
 			}
 
-			for ind, day := range days {
-				switch day {
-				case "monday":
-					err = json.Unmarshal(week[ind], &professor.Week.Monday)
-					if ServerError(err, http.StatusInternalServerError, w) {
-						return
-					}
-				case "tuesday":
-					err = json.Unmarshal(week[ind], &professor.Week.Tuesday)
-					if ServerError(err, http.StatusInternalServerError, w) {
-						return
-					}
-				case "wednesday":
-					err = json.Unmarshal(week[ind], &professor.Week.Wednesday)
-					if ServerError(err, http.StatusInternalServerError, w) {
-						return
-					}
-				case "thursday":
-					err = json.Unmarshal(week[ind], &professor.Week.Thursday)
-					if ServerError(err, http.StatusInternalServerError, w) {
-						return
-					}
-				case "friday":
-					err = json.Unmarshal(week[ind], &professor.Week.Friday)
-					if ServerError(err, http.StatusInternalServerError, w) {
-						return
-					}
-				case "saturday":
-					err = json.Unmarshal(week[ind], &professor.Week.Saturday)
-					if ServerError(err, http.StatusInternalServerError, w) {
-						return
-					}
-				}
-			}
+			rows.Scan(resPointers...)
 
-			professor.Week.SetIfEmpty()
+			professor.Week.UnmarshalServerWeek(days, week, w)
 
 			professors = append(professors, professor)
 		}
@@ -311,7 +218,7 @@ func ProfessorHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		if count == 0 {
-			 w.WriteHeader(http.StatusBadRequest)
+			w.WriteHeader(http.StatusBadRequest)
 			return
 		}
 
@@ -349,57 +256,17 @@ func StudentsGroupsHandler(w http.ResponseWriter, r *http.Request) {
 		for rows.Next() {
 			week := make([][]byte, len(days))
 			var group Group
-			switch len(days) {
-			case 1:
-				rows.Scan(&group.Id, &group.GroupName, &week[0])
-			case 2:
-				rows.Scan(&group.Id, &group.GroupName, &week[0], &week[1])
-			case 3:
-				rows.Scan(&group.Id, &group.GroupName, &week[0], &week[1], &week[2])
-			case 4:
-				rows.Scan(&group.Id, &group.GroupName, &week[0], &week[1], &week[2], &week[3])
-			case 5:
-				rows.Scan(&group.Id, &group.GroupName, &week[0], &week[1], &week[2], &week[3], &week[4])
-			case 6:
-				rows.Scan(&group.Id, &group.GroupName, &week[0], &week[1], &week[2], &week[3], &week[4], &week[5])
+
+			resPointers := make([]interface{}, len(days)+2)
+			resPointers[0] = &group.Id
+			resPointers[1] = &group.GroupName
+			for i := 0; i < len(days); i++ {
+				resPointers[i+2] = &week[i]
 			}
 
-			for ind, day := range days {
-				switch day {
-				case "monday":
-					err = json.Unmarshal(week[ind], &group.Week.Monday)
-					if ServerError(err, http.StatusInternalServerError, w) {
-						return
-					}
-				case "tuesday":
-					err = json.Unmarshal(week[ind], &group.Week.Tuesday)
-					if ServerError(err, http.StatusInternalServerError, w) {
-						return
-					}
-				case "wednesday":
-					err = json.Unmarshal(week[ind], &group.Week.Wednesday)
-					if ServerError(err, http.StatusInternalServerError, w) {
-						return
-					}
-				case "thursday":
-					err = json.Unmarshal(week[ind], &group.Week.Thursday)
-					if ServerError(err, http.StatusInternalServerError, w) {
-						return
-					}
-				case "friday":
-					err = json.Unmarshal(week[ind], &group.Week.Friday)
-					if ServerError(err, http.StatusInternalServerError, w) {
-						return
-					}
-				case "saturday":
-					err = json.Unmarshal(week[ind], &group.Week.Saturday)
-					if ServerError(err, http.StatusInternalServerError, w) {
-						return
-					}
-				}
-			}
+			rows.Scan(resPointers...)
 
-			group.Week.SetIfEmpty()
+			group.Week.UnmarshalServerWeek(days, week, w)
 
 			groups = append(groups, group)
 		}
@@ -456,57 +323,18 @@ func StudentGroupHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		if rows.Next() {
 			week := make([][]byte, len(days))
-			switch len(days) {
-			case 1:
-				rows.Scan(&group.Id, &group.GroupName, &week[0])
-			case 2:
-				rows.Scan(&group.Id, &group.GroupName, &week[0], &week[1])
-			case 3:
-				rows.Scan(&group.Id, &group.GroupName, &week[0], &week[1], &week[2])
-			case 4:
-				rows.Scan(&group.Id, &group.GroupName, &week[0], &week[1], &week[2], &week[3])
-			case 5:
-				rows.Scan(&group.Id, &group.GroupName, &week[0], &week[1], &week[2], &week[3], &week[4])
-			case 6:
-				rows.Scan(&group.Id, &group.GroupName, &week[0], &week[1], &week[2], &week[3], &week[4], &week[5])
+
+			resPointers := make([]interface{}, len(days)+2)
+			resPointers[0] = &group.Id
+			resPointers[1] = &group.GroupName
+			for i := 0; i < len(days); i++ {
+				resPointers[i+2] = &week[i]
 			}
 
-			for ind, day := range days {
-				switch day {
-				case "monday":
-					err = json.Unmarshal(week[ind], &group.Week.Monday)
-					if ServerError(err, http.StatusInternalServerError, w) {
-						return
-					}
-				case "tuesday":
-					err = json.Unmarshal(week[ind], &group.Week.Tuesday)
-					if ServerError(err, http.StatusInternalServerError, w) {
-						return
-					}
-				case "wednesday":
-					err = json.Unmarshal(week[ind], &group.Week.Wednesday)
-					if ServerError(err, http.StatusInternalServerError, w) {
-						return
-					}
-				case "thursday":
-					err = json.Unmarshal(week[ind], &group.Week.Thursday)
-					if ServerError(err, http.StatusInternalServerError, w) {
-						return
-					}
-				case "friday":
-					err = json.Unmarshal(week[ind], &group.Week.Friday)
-					if ServerError(err, http.StatusInternalServerError, w) {
-						return
-					}
-				case "saturday":
-					err = json.Unmarshal(week[ind], &group.Week.Saturday)
-					if ServerError(err, http.StatusInternalServerError, w) {
-						return
-					}
-				}
-			}
+			rows.Scan(resPointers...)
 
-			group.Week.SetIfEmpty()
+			group.Week.UnmarshalServerWeek(days, week, w)
+
 		} else {
 			w.WriteHeader(http.StatusNotFound)
 			return
