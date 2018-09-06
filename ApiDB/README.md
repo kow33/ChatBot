@@ -68,14 +68,14 @@
 
 **Поле id присутствует только в ответе на запрос пользователя**
 
-```
+```json
     {
-        "id": __id__(int),
-        "firstname": __name__(string),
-        "surname": __surname__(string),
-        "patronymic": __patronymic__(string),
-        "chair": __chair__(string),
-        "week": __week_object__(object)
+        "id": "__id__(int)",
+        "firstname": "__name__(string)",
+        "surname": "__surname__(string)",
+        "patronymic": "__patronymic__(string)",
+        "chair": "__chair__(string)",
+        "week": "__week_object__(object)"
     }
 ```
 
@@ -85,9 +85,9 @@
 
 ```json
     {
-        "id": __id__(int),
-        "group_name": __group_name__(string),
-        "week": __week_object__(object)
+        "id": "__id__(int)",
+        "group_name": "__group_name__(string)",
+        "week": "__week_object__(object)"
     }
 ```
 
@@ -95,12 +95,12 @@
 
 ```json
     {
-        "monday": __day_object__(object),
-        "tuesday": __day_object__(object),
-        "wednesday": __day_object__(object),
-        "thursday": __day_object__(object),
-        "friday": __day_object__(object),
-        "saturday": __day_object__(object)
+        "monday": "__day_object__(object)",
+        "tuesday": "__day_object__(object)",
+        "wednesday": "__day_object__(object)",
+        "thursday": "__day_object__(object)",
+        "friday": "__day_object__(object)",
+        "saturday": "__day_object__(object)"
     }
 ```
 
@@ -110,8 +110,8 @@
 
 ```json
     {
-    "lessons": __lesson_object__(object),
-    "is_empty": __is_empty__(bool)
+    "lessons": "__lesson_object__(object)",
+    "is_empty": "__is_empty__(bool)"
     }
 ```
 
@@ -121,8 +121,8 @@
 
 ```json
     {
-        "time": __time__(string),
-        "subject": __subject_object__(object)
+        "time": "__time__(string)",
+        "subject": "__subject_object__(object)"
     }
 ```
 
@@ -134,9 +134,9 @@
 
 ```json
     {
-        "numerator": __ numerator__(string),
-        "denominator": __denominator__(string),
-        "is_differ": __is_differ__(bool)
+        "numerator": "__ numerator__(string)",
+        "denominator": "__denominator__(string)",
+        "is_differ": "__is_differ__(bool)"
     }
 ```
 
