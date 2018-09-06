@@ -160,61 +160,75 @@
 <div>
     <h3>Структура JSON файла расписания преподавателя</h3>
     <strong>Поле id присутствует только в ответе на запрос пользователя</strong><br>
-    {<br>
-        "id": __id__(int),<br>
-        "firstname": __name__(string),<br>
-        "surname": __surname__(string),<br>
-        "patronymic": __patronymic__(string),<br>
-        "chair": __chair__(string),<br>
-        "week": __week_object__(object)<br>
+    <pre>
+    {
+        "id": __id__(int),
+        "firstname": __name__(string),
+        "surname": __surname__(string),
+        "patronymic": __patronymic__(string),
+        "chair": __chair__(string),
+        "week": __week_object__(object)
     }
+    </pre>
 </div>
 <div>
     <h3>Структура JSON файла расписания групп</h3>
     <strong>Поле id присутствует только в ответе на запрос пользователя</strong><br>
-    {<br>
-        "id": __id__(int),<br>
-        "group_name": __group_name__(string),<br>
-        "week": __week_object__(object)<br>
+    <pre>
+    {
+        "id": __id__(int),
+        "group_name": __group_name__(string),
+        "week": __week_object__(object)
     }
+    </pre>
 </div>
 <div>
     <h3>Структура JSON объекта week</h3>
-    {<br>
-        "monday": __day_object__(object),<br>
-        "tuesday": __day_object__(object),<br>
-        "wednesday": __day_object__(object),<br>
-        "thursday": __day_object__(object),<br>
-        "friday": __day_object__(object),<br>
-        "saturday": __day_object__(object)<br>
+    <pre>
+    {
+        "monday": __day_object__(object),
+        "tuesday": __day_object__(object),
+        "wednesday": __day_object__(object),
+        "thursday": __day_object__(object),
+        "friday": __day_object__(object),
+        "saturday": __day_object__(object)
     }
+    </pre>
 </div>
 <div>
     <h3>Структура JSON объекта day</h3>
     <strong>Поле is_empty означает, что расписание пустое или нет</strong><br>
-    {<br>
-    "lessons": __lesson_object__(object),<br>
-    "is_empty": __is_empty__(bool)<br>
+    <pre>
+    {
+    "lessons": __lesson_object__(object),
+    "is_empty": __is_empty__(bool)
     }
+    </pre>
 </div>
 <div>
     <h3>Структура JSON объекта lesson</h3>
     <strong>Поле time содержит временные рамки урока в виде начало - конец. Пример: "8:30 - 10:05"</strong><br>
-    {<br>
-        "time": __time__(string),<br>
-        "subject": __subject_object__(object)<br>
+    <pre>
+    {
+        "time": __time__(string),
+        "subject": __subject_object__(object)
     }
+    </pre>
 </div>
 <div>
     <h3>Структура JSON объекта lesson</h3>
     <strong>Поле numerator содержит название предмета и его кабинета по числителям. Пример: "АСОИУ,501ю"</strong><br>
-    <strong>Поле denominator содержит название предмета и его кабинета по знаметелям. Пример: "Электротехника,502ю"</strong><br>
-    <strong>Поле is_differ содержит информацию - отличаются ли предметы или кабинеты в числитель и знаменатель</strong><br>
-    {<br>
-        "numerator": __ numerator__(string),<br>
-        "denominator": __denominator__(string),<br>
-        "is_differ": __is_differ__(bool)<br>
+    <strong>Поле denominator содержит название предмета и его кабинета по знаметелям. Пример:
+        "Электротехника,502ю"</strong><br>
+    <strong>Поле is_differ содержит информацию - отличаются ли предметы или кабинеты в числитель и
+        знаменатель</strong><br>
+    <pre>
+    {
+        "numerator": __ numerator__(string),
+        "denominator": __denominator__(string),
+        "is_differ": __is_differ__(bool)
     }
+    </pre>
 </div>
 <div>
     <h3>Пример расписания группы(расписание преподователя аналогично)</h3>
