@@ -89,6 +89,9 @@ func (w *Week) GetWeekInJSON() [][]byte {
 
 func (w *Week) UnmarshalServerWeek(days []string, week [][]byte, writter http.ResponseWriter) bool {
 	for ind, d := range days {
+		if string(week[ind]) == "null" {
+			continue
+		}
 		day := Day{}
 		switch d {
 		case "monday":

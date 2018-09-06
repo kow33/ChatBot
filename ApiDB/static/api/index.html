@@ -606,5 +606,148 @@
 }
     </pre>
 </div>
+<div>
+    <h3>Пример ответа на запрос:
+        <a href="/api/v1/schedule/student_groups?days=monday,wednesday;limit=1">
+            <i>/api/v1/schedule/student_groups?days=monday,wednesday;limit=1</i>
+        </a>
+    </h3>
+    <pre>
+[
+    {
+        "id": 10,
+        "group_name": "ИУ5-31Б",
+        "week": {
+            "monday": {
+                "lessons": [
+                    {
+                        "time": "8:30 - 10:05",
+                        "subject": {
+                            "numerator": "",
+                            "denominator": "",
+                            "is_differ": false
+                        }
+                    },
+                    {
+                        "time": "10:15 - 11:50",
+                        "subject": {
+                            "numerator": "Электротехника УЦ,362",
+                            "denominator": "",
+                            "is_differ": true
+                        }
+                    },
+                    {
+                        "time": "12:00 - 13:35",
+                        "subject": {
+                            "numerator": "Электротехника УЦ,362",
+                            "denominator": "",
+                            "is_differ": true
+                        }
+                    },
+                    {
+                        "time": "13:50 - 15:25",
+                        "subject": {
+                            "numerator": "Базовые компоненты Интернет-технологий,362",
+                            "denominator": "Модели данных,306э",
+                            "is_differ": true
+                        }
+                    },
+                    {
+                        "time": "15:40 - 17:15",
+                        "subject": {
+                            "numerator": "Электротехника,362",
+                            "denominator": "Модели данных,306э",
+                            "is_differ": true
+                        }
+                    },
+                    {
+                        "time": "17:25 - 19:00",
+                        "subject": {
+                            "numerator": "",
+                            "denominator": "Модели данных,306э",
+                            "is_differ": true
+                        }
+                    },
+                    {
+                        "time": "19:10 - 20:45",
+                        "subject": {
+                            "numerator": "",
+                            "denominator": "",
+                            "is_differ": false
+                        }
+                    }
+                ],
+                "is_empty": false
+            },
+            "tuesday": null,
+            "wednesday": {
+                "lessons": [
+                    {
+                        "time": "8:30 - 10:05",
+                        "subject": {
+                            "numerator": "Физика,кафедра",
+                            "denominator": "",
+                            "is_differ": true
+                        }
+                    },
+                    {
+                        "time": "10:15 - 11:50",
+                        "subject": {
+                            "numerator": "Физика,кафедра",
+                            "denominator": "Физика,427ю",
+                            "is_differ": true
+                        }
+                    },
+                    {
+                        "time": "12:00 - 13:35",
+                        "subject": {
+                            "numerator": "Модели данных,501ю",
+                            "denominator": "Модели данных,501ю",
+                            "is_differ": false
+                        }
+                    },
+                    {
+                        "time": "13:50 - 15:25",
+                        "subject": {
+                            "numerator": "Электротехника,501ю",
+                            "denominator": "Электротехника,501ю",
+                            "is_differ": false
+                        }
+                    },
+                    {
+                        "time": "15:40 - 17:15",
+                        "subject": {
+                            "numerator": "",
+                            "denominator": "Электротехника,427ю",
+                            "is_differ": true
+                        }
+                    },
+                    {
+                        "time": "17:25 - 19:00",
+                        "subject": {
+                            "numerator": "",
+                            "denominator": "",
+                            "is_differ": false
+                        }
+                    },
+                    {
+                        "time": "19:10 - 20:45",
+                        "subject": {
+                            "numerator": "",
+                            "denominator": "",
+                            "is_differ": false
+                        }
+                    }
+                ],
+                "is_empty": false
+            },
+            "thursday": null,
+            "friday": null,
+            "saturday": null
+        }
+    }
+]
+    </pre>
+</div>
 </body>
 </html>
