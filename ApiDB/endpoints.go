@@ -69,7 +69,9 @@ func ProfessorsHandler(w http.ResponseWriter, r *http.Request) {
 
 			rows.Scan(resPointers...)
 
-			professor.Week.UnmarshalServerWeek(days, week, w)
+			if professor.Week.UnmarshalServerWeek(days, week, w) {
+				return
+			}
 
 			professors = append(professors, professor)
 		}
@@ -153,7 +155,9 @@ func ProfessorGetHandler(w http.ResponseWriter, r *http.Request) {
 
 			rows.Scan(resPointers...)
 
-			professor.Week.UnmarshalServerWeek(days, week, w)
+			if professor.Week.UnmarshalServerWeek(days, week, w) {
+				return
+			}
 
 			professors = append(professors, professor)
 		}
@@ -266,7 +270,9 @@ func StudentsGroupsHandler(w http.ResponseWriter, r *http.Request) {
 
 			rows.Scan(resPointers...)
 
-			group.Week.UnmarshalServerWeek(days, week, w)
+			if group.Week.UnmarshalServerWeek(days, week, w) {
+				return
+			}
 
 			groups = append(groups, group)
 		}
@@ -333,7 +339,9 @@ func StudentGroupHandler(w http.ResponseWriter, r *http.Request) {
 
 			rows.Scan(resPointers...)
 
-			group.Week.UnmarshalServerWeek(days, week, w)
+			if group.Week.UnmarshalServerWeek(days, week, w) {
+				return
+			}
 
 		} else {
 			w.WriteHeader(http.StatusNotFound)

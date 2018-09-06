@@ -87,47 +87,48 @@ func (w *Week) GetWeekInJSON() [][]byte {
 	return week
 }
 
-func (w *Week) UnmarshalServerWeek(days []string, week [][]byte, writter http.ResponseWriter) {
+func (w *Week) UnmarshalServerWeek(days []string, week [][]byte, writter http.ResponseWriter) bool {
 	for ind, d := range days {
 		day := Day{}
 		switch d {
 		case "monday":
-
 			err := json.Unmarshal(week[ind], &day)
 			if ServerError(err, http.StatusInternalServerError, writter) {
-				return
+				return true
 			}
 			w.Monday = &day
 		case "tuesday":
 			err := json.Unmarshal(week[ind], &day)
 			if ServerError(err, http.StatusInternalServerError, writter) {
-				return
+				return true
 			}
 			w.Tuesday = &day
 		case "wednesday":
 			err := json.Unmarshal(week[ind], &day)
 			if ServerError(err, http.StatusInternalServerError, writter) {
-				return
+				return true
 			}
 			w.Wednesday = &day
 		case "thursday":
 			err := json.Unmarshal(week[ind], &day)
 			if ServerError(err, http.StatusInternalServerError, writter) {
-				return
+				return true
 			}
 			w.Thursday = &day
 		case "friday":
 			err := json.Unmarshal(week[ind], &day)
 			if ServerError(err, http.StatusInternalServerError, writter) {
-				return
+				return true
 			}
 			w.Friday = &day
 		case "saturday":
 			err := json.Unmarshal(week[ind], &day)
 			if ServerError(err, http.StatusInternalServerError, writter) {
-				return
+				return true
 			}
 			w.Saturday = &day
 		}
 	}
+
+	return false
 }
