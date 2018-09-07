@@ -12,6 +12,7 @@ var port string
 var addr string
 var loginMySql string
 var passwordMySql string
+var mysqlServerAddr string
 
 func init() {
 	ip = os.Getenv("IP_SERVER")
@@ -33,6 +34,10 @@ func init() {
 	}
 
 	addr = ip + ":" + port
+
+	mysqlServerAddr = loginMySql + ":" + passwordMySql + "@/"
+
+	InitDb("SqlScripts/initDb.sql")
 }
 
 func main() {
@@ -48,6 +53,10 @@ func main() {
 
 	r.HandleFunc("/api/v1/schedule/student_groups", BasicAuth(StudentsGroupsHandler))
 	r.HandleFunc("/api/v1/schedule/student_groups/{group_name}", BasicAuth(StudentGroupHandler)).Methods("GET", "PUT", "DELETE")
+
+	r.HandleFunc("/api/v1/other_themes/jokes", BasicAuth(JokesHandler))
+	r.HandleFunc("/api/v1/other_themes/jokes/{theme}", BasicAuth(JokeGetHandler)).Methods("GET")
+	r.HandleFunc("/api/v1/other_themes/jokes/{id}", BasicAuth(JokeHandler)).Methods( "PUT", "DELETE")
 
 	log.Printf("Server started on %s\n", addr)
 
