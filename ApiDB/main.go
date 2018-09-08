@@ -47,16 +47,19 @@ func main() {
 	r.HandleFunc("/api", HomeHandler)
 
 	r.HandleFunc("/api/v1/schedule/professors", BasicAuth(ProfessorsHandler))
-	r.HandleFunc("/api/v1/schedule/professors/{surname}", BasicAuth(ProfessorGetHandler)).Methods("GET")
+	r.HandleFunc("/api/v1/schedule/professors/{surname}", ProfessorGetHandler).Methods("GET")
 	r.HandleFunc("/api/v1/schedule/professors/{id}", BasicAuth(ProfessorHandler)).
 		Methods("PUT", "DELETE")
+	r.HandleFunc("/api/v1/schedule/info/professors", ProfessorsInfoHandler).Methods("GET")
 
 	r.HandleFunc("/api/v1/schedule/student_groups", BasicAuth(StudentsGroupsHandler))
 	r.HandleFunc("/api/v1/schedule/student_groups/{group_name}", BasicAuth(StudentGroupHandler)).Methods("GET", "PUT", "DELETE")
+	r.HandleFunc("/api/v1/schedule/info/student_groups", StudentsInfoHandler).Methods("GET")
 
 	r.HandleFunc("/api/v1/other_themes/jokes", BasicAuth(JokesHandler))
-	r.HandleFunc("/api/v1/other_themes/jokes/{theme}", BasicAuth(JokeGetHandler)).Methods("GET")
+	r.HandleFunc("/api/v1/other_themes/jokes/{theme}", JokeGetHandler).Methods("GET")
 	r.HandleFunc("/api/v1/other_themes/jokes/{id}", BasicAuth(JokeHandler)).Methods( "PUT", "DELETE")
+	r.HandleFunc("/api/v1/other_themes/info/jokes", JokesInfoHandler).Methods("GET")
 
 	log.Printf("Server started on %s\n", addr)
 

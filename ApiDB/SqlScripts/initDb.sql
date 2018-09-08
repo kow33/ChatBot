@@ -1,7 +1,7 @@
 CREATE DATABASE IF NOT EXISTS `schedule`;
 USE `schedule`;
 
-create table if not exists `schedule.professors`
+create table if not exists `professors`
 (
   id         int auto_increment
   comment 'Уникальный идентификатор преподавателя'
@@ -19,7 +19,9 @@ create table if not exists `schedule.professors`
   wednesday  json        null,
   thursday   json        null,
   friday     json        null,
-  saturday   json        null
+  saturday   json        null,
+  constraint professors_firstname_surname_patronymic_chair_uindex
+  unique (firstname, surname, patronymic, chair)
 )
   comment 'Расписание преподавателей
 Пример:
@@ -35,7 +37,7 @@ create table if not exists `schedule.professors`
     "is_empty": true
 }';
 
-create table if not exists `schedule.student_groups`
+create table if not exists `student_groups`
 (
   id         int auto_increment
   comment 'Уникальный идентификатор группы'
@@ -68,7 +70,7 @@ create table if not exists `schedule.student_groups`
 CREATE DATABASE IF NOT EXISTS `other_themes`;
 USE `other_themes`;
 
-create table if not exists jokes
+create table if not exists `jokes`
 (
   id    int                            not null
   comment 'Уникальный идентификатор шутки'

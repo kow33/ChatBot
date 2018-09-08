@@ -30,10 +30,20 @@
         <li>Расписание групп(на 6 рабочих дней)</li>
         <li>Расписание преподавателей(на 6 рабочих дней)</li>
     </ul>
+    <b>Дополнительные функции:</b>
+    <ul>
+        <li>Анекдоты</li>
+    </ul>
 </div>
 <div>
     <b>Документация:</b><br>
     <ul>
+        <li><strong>"/api/v1/schedule/info/professors"</strong> -
+            <ul>
+                <b>Доступные методы:</b>
+                <li>GET - получение списка преподавателей без расписания (имя, фамилия, отчество, кафедра)</li>
+            </ul>
+        </li>
         <li><strong>"/api/v1/schedule/professors"</strong> -
             <ul>
                 <b>Доступны методы:</b>
@@ -104,6 +114,12 @@
                 <li>DELETE - удаление расписания преподавателя с идентификатором id</li>
             </ul>
         </li>
+        <li><strong>"/api/v1/schedule/info/student_groups"</strong> -
+            <ul>
+                <b>Доступные методы:</b>
+                <li>GET - получение списка групп без расписания (номер группы)</li>
+            </ul>
+        </li>
         <li><strong>"/api/v1/schedule/student_groups"</strong> -
             <ul>
                 <b>Доступны методы:</b>
@@ -153,6 +169,68 @@
                         <i>/api/v1/schedule/student_groups/ИУ5-31Б?days=monday,wednesday</i>
                     </a>
                 </li>
+            </ul>
+        </li>
+        <li><strong>"/api/v1/other_themes/info/jokes"</strong> -
+            <ul>
+                <b>Доступные методы:</b>
+                <li>GET - получение списка анекдотов без текста (название категории)</li>
+            </ul>
+        </li>
+        <li><strong>"/api/v1/other_themes/jokes"</strong> -
+            <ul>
+                <b>Доступны методы:</b>
+                <li>GET - получение всего списка анекдотов</li>
+                <li>POST - добавление нового анекдота</li>
+            </ul>
+            <ul>
+                <b>Доступные параметры:</b>
+                <li>
+                    limit - количество записей<br>
+                    Пример:
+                    <a href="api/v1/other_themes/jokes?limit=1">
+                        <i>/api/v1/other_themes/jokes?limit=1</i>
+                    </a>
+                </li>
+                <li>
+                    offset - сколько записей от начала списка нужно пропустить.<br>
+                    Только, если установлен параметр limit<br>
+                    Пример:
+                    <a href="api/v1/other_themes/jokes?limit=1;offset=1">
+                        <i>/api/v1/other_themes/jokes?limit=1;offset=1</i>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li><strong>"/api/v1/other_themes/jokes/{theme}"</strong> -
+            <ul>
+                <b>Доступны методы:</b>
+                <li>GET - получение списка анекдотов по заданной категории</li>
+            </ul>
+            <ul>
+                <b>Доступные параметры:</b>
+                <li>
+                    limit - количество записей<br>
+                    Пример:
+                    <a href="api/v1/other_themes/jokes/robots?limit=1">
+                        <i>/api/v1/other_themes/jokes/robots?limit=1</i>
+                    </a>
+                </li>
+                <li>
+                    offset - сколько записей от начала списка нужно пропустить.<br>
+                    Только, если установлен параметр limit<br>
+                    Пример:
+                    <a href="api/v1/other_themes/jokes/robots?limit=1;offset=1">
+                        <i>/api/v1/other_themes/jokes/robots?limit=1;offset=1</i>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li><strong>"/api/v1/other_themes/jokes/{id}"</strong> -
+            <ul>
+                <b>Доступны методы:</b>
+                <li>PUT - замена уже существующего анекдота по его id</li>
+                <li>DELETE - удаление уже существующего анекдота по его id</li>
             </ul>
         </li>
     </ul>
@@ -227,6 +305,24 @@
         "numerator": __ numerator__(string),
         "denominator": __denominator__(string),
         "is_differ": __is_differ__(bool)
+    }
+    </pre>
+</div>
+<div>
+    <h3>Структура JSON объекта joke</h3>
+    <pre>
+    {
+        "id": __id__(int),
+        "theme": __theme__(string),
+        "body": __text__(string)
+    }
+    </pre>
+    <h3>Пример joke</h3>
+    <pre>
+    {
+        "id": 1,
+        "theme": "robots",
+        "body": "\"Робот никогда не заменит человека!\" /Людоед/ "
     }
     </pre>
 </div>
