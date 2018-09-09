@@ -53,7 +53,8 @@ func main() {
 	r.HandleFunc("/api/v1/schedule/info/professors", ProfessorsInfoHandler).Methods("GET")
 
 	r.HandleFunc("/api/v1/schedule/student_groups", BasicAuth(StudentsGroupsHandler))
-	r.HandleFunc("/api/v1/schedule/student_groups/{group_name}", BasicAuth(StudentGroupHandler)).Methods("GET", "PUT", "DELETE")
+	r.HandleFunc("/api/v1/schedule/student_groups/{group_name}", BasicAuth(StudentGroupHandler)).
+		Methods("GET", "PUT", "DELETE")
 	r.HandleFunc("/api/v1/schedule/info/student_groups", StudentsInfoHandler).Methods("GET")
 
 	r.HandleFunc("/api/v1/other_themes/jokes", BasicAuth(JokesHandler))

@@ -60,8 +60,8 @@ func BasicAuth(h http.HandlerFunc) http.HandlerFunc {
 	}
 }
 
-func PanicOnErr(err error) {
+func LogError(err error) {
 	if err != nil {
-		panic(err)
+		log.Fatalln(err)
 	}
 }

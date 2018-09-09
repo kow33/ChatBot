@@ -7,7 +7,11 @@ import (
 )
 
 func JokesHandler(w http.ResponseWriter, r *http.Request) {
-	db := DbConn("other_themes")
+	db, err := DbConn("other_themes")
+	if ServerError(err, http.StatusBadGateway, w) {
+		return
+	}
+
 	switch r.Method {
 	case http.MethodGet:
 		limit := r.URL.Query().Get("limit")
@@ -67,7 +71,11 @@ func JokesHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func JokeGetHandler(w http.ResponseWriter, r *http.Request) {
-	db := DbConn("other_themes")
+	db, err := DbConn("other_themes")
+	if ServerError(err, http.StatusBadGateway, w) {
+		return
+	}
+
 	theme := mux.Vars(r)["theme"]
 	switch r.Method {
 	case http.MethodGet:
@@ -111,7 +119,11 @@ func JokeGetHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func JokeHandler(w http.ResponseWriter, r *http.Request) {
-	db := DbConn("other_themes")
+	db, err := DbConn("other_themes")
+	if ServerError(err, http.StatusBadGateway, w) {
+		return
+	}
+
 	id := mux.Vars(r)["id"]
 	switch r.Method {
 	case http.MethodDelete:
@@ -150,7 +162,10 @@ func JokeHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func JokesInfoHandler(w http.ResponseWriter, r *http.Request) {
-	db := DbConn("other_themes")
+	db, err := DbConn("other_themes")
+	if ServerError(err, http.StatusBadGateway, w) {
+		return
+	}
 
 	type JokesInfo struct{
 		Theme string `json:"theme"`

@@ -8,7 +8,11 @@ import (
 )
 
 func StudentsGroupsHandler(w http.ResponseWriter, r *http.Request) {
-	db := DbConn("schedule")
+	db, err := DbConn("schedule")
+	if ServerError(err, http.StatusBadGateway, w) {
+		return
+	}
+
 	switch r.Method {
 	case http.MethodGet:
 		limit := r.URL.Query().Get("limit")
@@ -50,7 +54,8 @@ func StudentsGroupsHandler(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 
-			if group.Week.UnmarshalServerWeek(days, week, w) {
+			err = group.Week.UnmarshalServerWeek(days, week)
+			if ServerError(err, http.StatusInternalServerError, w) {
 				return
 			}
 
@@ -76,7 +81,11 @@ func StudentsGroupsHandler(w http.ResponseWriter, r *http.Request) {
 			"`monday`, `tuesday`, `wednesday`, `thursday`, `friday`, `saturday`) " +
 			"VALUES (?, ?, ?, ?, ?, ?, ?)"
 
-		week := group.Week.GetWeekInJSON()
+		week, err := group.Week.GetWeekInJSON()
+		if ServerError(err, http.StatusInternalServerError, w) {
+			return
+		}
+
 		_, err = db.Query(query, group.GroupName, week[0], week[1], week[2], week[3], week[4], week[5])
 		if ServerError(err, http.StatusBadGateway, w) {
 			return
@@ -89,7 +98,11 @@ func StudentsGroupsHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func StudentGroupHandler(w http.ResponseWriter, r *http.Request) {
-	db := DbConn("schedule")
+	db, err := DbConn("schedule")
+	if ServerError(err, http.StatusBadGateway, w) {
+		return
+	}
+
 	groupName := mux.Vars(r)["group_name"]
 	switch r.Method {
 	case http.MethodGet:
@@ -122,7 +135,8 @@ func StudentGroupHandler(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 
-			if group.Week.UnmarshalServerWeek(days, week, w) {
+			err = group.Week.UnmarshalServerWeek(days, week)
+			if ServerError(err, http.StatusInternalServerError, w) {
 				return
 			}
 
@@ -163,7 +177,11 @@ func StudentGroupHandler(w http.ResponseWriter, r *http.Request) {
 			"`wednesday` = ?, `thursday` = ?, `friday` = ?, `saturday` = ? " +
 			"WHERE `group_name` = ?"
 
-		week := group.Week.GetWeekInJSON()
+		week, err := group.Week.GetWeekInJSON()
+		if ServerError(err, http.StatusInternalServerError, w) {
+			return
+		}
+
 		_, err = db.Query(query, group.GroupName, week[0], week[1], week[2], week[3], week[4], week[5], groupName)
 		if ServerError(err, http.StatusBadGateway, w) {
 			return
@@ -174,7 +192,10 @@ func StudentGroupHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func StudentsInfoHandler(w http.ResponseWriter, r *http.Request) {
-	db := DbConn("schedule")
+	db, err := DbConn("schedule")
+	if ServerError(err, http.StatusBadGateway, w) {
+		return
+	}
 
 	type GroupInfo struct{
 		GroupName string `json:"group_name"`

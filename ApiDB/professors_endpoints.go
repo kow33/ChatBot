@@ -9,7 +9,11 @@ import (
 )
 
 func ProfessorsHandler(w http.ResponseWriter, r *http.Request) {
-	db := DbConn("schedule")
+	db, err := DbConn("schedule")
+	if ServerError(err, http.StatusBadGateway, w) {
+		return
+	}
+
 	switch r.Method {
 	case http.MethodGet:
 		limit := r.URL.Query().Get("limit")
@@ -54,7 +58,8 @@ func ProfessorsHandler(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 
-			if professor.Week.UnmarshalServerWeek(days, week, w) {
+			err = professor.Week.UnmarshalServerWeek(days, week)
+			if ServerError(err, http.StatusInternalServerError, w) {
 				return
 			}
 
@@ -81,7 +86,10 @@ func ProfessorsHandler(w http.ResponseWriter, r *http.Request) {
 			"`monday`, `tuesday`, `wednesday`, `thursday`, `friday`, `saturday`) " +
 			"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
 
-		week := professor.Week.GetWeekInJSON()
+		week, err := professor.Week.GetWeekInJSON()
+		if ServerError(err, http.StatusInternalServerError, w) {
+			return
+		}
 
 		_, err = db.Query(query, professor.Firstname, professor.Surname, professor.Patronymic, professor.Chair,
 			week[0], week[1], week[2], week[3], week[4], week[5])
@@ -96,7 +104,11 @@ func ProfessorsHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func ProfessorGetHandler(w http.ResponseWriter, r *http.Request) {
-	db := DbConn("schedule")
+	db, err := DbConn("schedule")
+	if ServerError(err, http.StatusBadGateway, w) {
+		return
+	}
+
 	surname := mux.Vars(r)["surname"]
 	switch r.Method {
 	case http.MethodGet:
@@ -143,7 +155,8 @@ func ProfessorGetHandler(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 
-			if professor.Week.UnmarshalServerWeek(days, week, w) {
+			err = professor.Week.UnmarshalServerWeek(days, week)
+			if ServerError(err, http.StatusInternalServerError, w) {
 				return
 			}
 
@@ -162,7 +175,11 @@ func ProfessorGetHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func ProfessorHandler(w http.ResponseWriter, r *http.Request) {
-	db := DbConn("schedule")
+	db, err := DbConn("schedule")
+	if ServerError(err, http.StatusBadGateway, w) {
+		return
+	}
+
 	id, err := strconv.Atoi(mux.Vars(r)["id"])
 	if ServerError(err, http.StatusInternalServerError, w) {
 		return
@@ -199,7 +216,11 @@ func ProfessorHandler(w http.ResponseWriter, r *http.Request) {
 			"`wednesday` = ?, `thursday` = ?, `friday` = ?, `saturday` = ? " +
 			"WHERE `id` = ?"
 
-		week := professor.Week.GetWeekInJSON()
+		week, err := professor.Week.GetWeekInJSON()
+		if ServerError(err, http.StatusInternalServerError, w) {
+			return
+		}
+
 		res, err := db.Exec(query, professor.Firstname, professor.Surname, professor.Patronymic, professor.Chair,
 			week[0], week[1], week[2], week[3], week[4], week[5], id)
 		if ServerError(err, http.StatusBadGateway, w) {
@@ -219,7 +240,10 @@ func ProfessorHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func ProfessorsInfoHandler(w http.ResponseWriter, r *http.Request) {
-	db := DbConn("schedule")
+	db, err := DbConn("schedule")
+	if ServerError(err, http.StatusBadGateway, w) {
+		return
+	}
 
 	type ProfessorInfo struct{
 		Firstname string `json:"firstname"`

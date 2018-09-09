@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"net/http"
 )
 
 type Joke struct {
@@ -51,49 +50,22 @@ type Subject struct {
 	IsDiffer    	bool   		`json:"is_differ"`
 }
 
-func (w *Week) GetWeekInJSON() [][]byte {
+func (w *Week) GetWeekInJSON() ([][]byte, error) {
 	week := make([][]byte, 6)
+	weekArr := []*Day{w.Monday, w.Tuesday, w.Wednesday, w.Thursday, w.Friday, w.Saturday}
 
-	day, err := json.Marshal(w.Monday)
-	if err != nil {
-		panic(err.Error())
+	for i, d := range weekArr {
+		day, err := json.Marshal(d)
+		if err != nil {
+			return nil, err
+		}
+		week[i] = day
 	}
-	week[0] = day
 
-	day, err = json.Marshal(w.Tuesday)
-	if err != nil {
-		panic(err.Error())
-	}
-	week[1] = day
-
-	day, err = json.Marshal(w.Wednesday)
-	if err != nil {
-		panic(err.Error())
-	}
-	week[2] = day
-
-	day, err = json.Marshal(w.Thursday)
-	if err != nil {
-		panic(err.Error())
-	}
-	week[3] = day
-
-	day, err = json.Marshal(w.Friday)
-	if err != nil {
-		panic(err.Error())
-	}
-	week[4] = day
-
-	day, err = json.Marshal(w.Saturday)
-	if err != nil {
-		panic(err.Error())
-	}
-	week[5] = day
-
-	return week
+	return week, nil
 }
 
-func (w *Week) UnmarshalServerWeek(days []string, week [][]byte, writter http.ResponseWriter) bool {
+func (w *Week) UnmarshalServerWeek(days []string, week [][]byte) error {
 	for ind, d := range days {
 		if string(week[ind]) == "null" {
 			continue
@@ -102,42 +74,42 @@ func (w *Week) UnmarshalServerWeek(days []string, week [][]byte, writter http.Re
 		switch d {
 		case "monday":
 			err := json.Unmarshal(week[ind], &day)
-			if ServerError(err, http.StatusInternalServerError, writter) {
-				return true
+			if err != nil {
+				return err
 			}
 			w.Monday = &day
 		case "tuesday":
 			err := json.Unmarshal(week[ind], &day)
-			if ServerError(err, http.StatusInternalServerError, writter) {
-				return true
+			if err != nil {
+				return err
 			}
 			w.Tuesday = &day
 		case "wednesday":
 			err := json.Unmarshal(week[ind], &day)
-			if ServerError(err, http.StatusInternalServerError, writter) {
-				return true
+			if err != nil {
+				return err
 			}
 			w.Wednesday = &day
 		case "thursday":
 			err := json.Unmarshal(week[ind], &day)
-			if ServerError(err, http.StatusInternalServerError, writter) {
-				return true
+			if err != nil {
+				return err
 			}
 			w.Thursday = &day
 		case "friday":
 			err := json.Unmarshal(week[ind], &day)
-			if ServerError(err, http.StatusInternalServerError, writter) {
-				return true
+			if err != nil {
+				return err
 			}
 			w.Friday = &day
 		case "saturday":
 			err := json.Unmarshal(week[ind], &day)
-			if ServerError(err, http.StatusInternalServerError, writter) {
-				return true
+			if err != nil {
+				return err
 			}
 			w.Saturday = &day
 		}
 	}
 
-	return false
+	return nil
 }

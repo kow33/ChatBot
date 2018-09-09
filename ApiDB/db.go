@@ -9,29 +9,33 @@ import (
 
 func InitDb(pathToInitScript string) {
 	db, err := sql.Open("mysql", mysqlServerAddr)
-	PanicOnErr(err)
+	LogError(err)
 	defer db.Close()
 
 	err = db.Ping()
-	PanicOnErr(err)
+	LogError(err)
 
 	sqlScript, err := ioutil.ReadFile(pathToInitScript)
-	PanicOnErr(err)
+	LogError(err)
 
 	requests := strings.Split(string(sqlScript), ";")
 
 	for _, req := range requests {
 		_, err := db.Exec(req)
-		PanicOnErr(err)
+		LogError(err)
 	}
 }
 
-func DbConn(dbName string) *sql.DB {
+func DbConn(dbName string) (*sql.DB, error) {
 	db, err := sql.Open("mysql", mysqlServerAddr + dbName)
-	PanicOnErr(err)
+	if err != nil {
+		 return nil, err
+	}
 
 	err = db.Ping()
-	PanicOnErr(err)
+	if err != nil {
+		return nil, err
+	}
 
-	return db
+	return db, nil
 }
