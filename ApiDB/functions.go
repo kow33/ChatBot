@@ -6,6 +6,7 @@ import (
 	"errors"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 )
 
@@ -58,6 +59,30 @@ func BasicAuth(h http.HandlerFunc) http.HandlerFunc {
 
 		h.ServeHTTP(w, r)
 	}
+}
+
+func EnvBind() {
+	ip = os.Getenv("IP_SERVER")
+	port = os.Getenv("PORT_SERVER")
+	loginMySql = os.Getenv("MYSQL_LOGIN")
+	passwordMySql = os.Getenv("MYSQL_PASSWORD")
+
+	if len(ip) == 0 {
+		ip = ""
+	}
+	if len(port) == 0 {
+		port = "8080"
+	}
+	if len(loginMySql) == 0 {
+		loginMySql = "root"
+	}
+	if len(passwordMySql) == 0 {
+		passwordMySql = ""
+	}
+
+	addr = ip + ":" + port
+
+	mysqlServerAddr = loginMySql + ":" + passwordMySql + "@/"
 }
 
 func LogError(err error) {

@@ -1,10 +1,10 @@
 package main
 
 import (
+	"flag"
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
-	"os"
 )
 
 var ip string
@@ -15,29 +15,28 @@ var passwordMySql string
 var mysqlServerAddr string
 
 func init() {
-	ip = os.Getenv("IP_SERVER")
-	port = os.Getenv("PORT_SERVER")
-	loginMySql = os.Getenv("MYSQL_LOGIN")
-	passwordMySql = os.Getenv("MYSQL_PASSWORD")
+	EnvBind()
 
-	if len(ip) == 0 {
-		ip = ""
-	}
-	if len(port) == 0 {
-		port = "8080"
-	}
-	if len(loginMySql) == 0 {
-		loginMySql = "root"
-	}
-	if len(passwordMySql) == 0 {
-		passwordMySql = ""
-	}
+	var dropScriptPath string
+	var initScriptPath string
+	var isNeedInit bool
+	var isNeedDrop bool
 
-	addr = ip + ":" + port
+	flag.BoolVar(&isNeedInit, "init_db", false, "True - init databases, false - otherwise")
+	flag.BoolVar(&isNeedDrop, "drop_db", false, "True - drop if exists and init databases, " +
+		"false - do nothing")
+	flag.StringVar(&dropScriptPath, "dscript", "SqlScripts/dropDb.sql",
+		"Enter path to custom drop script")
+	flag.StringVar(&initScriptPath, "iscript", "SqlScripts/initDb.sql",
+		"Enter path to custom init script")
 
-	mysqlServerAddr = loginMySql + ":" + passwordMySql + "@/"
-
-	InitDb("SqlScripts/initDb.sql")
+	flag.Parse()
+	if isNeedDrop {
+		DropDb(dropScriptPath)
+		InitDb(initScriptPath)
+	} else if isNeedInit {
+		InitDb(initScriptPath)
+	}
 }
 
 func main() {
