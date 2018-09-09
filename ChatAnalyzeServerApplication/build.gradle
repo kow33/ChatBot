@@ -35,7 +35,14 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     compile "io.ktor:ktor-server-netty:$ktor_version"
     compile "io.ktor:ktor-gson:$ktor_version"
+    compile "io.ktor:ktor-client-jetty:$ktor_version"
+    compile "io.ktor:ktor-client-apache:$ktor_version"
+    compile "io.ktor:ktor-client-cio:$ktor_version"
+    compile "io.ktor:ktor-client-auth-basic:$ktor_version"
+    compile "io.ktor:ktor-client-json:$ktor_version"
+    compile "io.ktor:ktor-client-gson:$ktor_version"
     compile "ch.qos.logback:logback-classic:$logback_version"
+    compile "io.ktor:ktor-client-auth-basic:$ktor_version"
     testCompile "io.ktor:ktor-server-tests:$ktor_version"
 }
 
