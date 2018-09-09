@@ -26,17 +26,32 @@ val jokesKeyWord= listOf(
         "шут",
         "рассмеши"
 )
-val daysOfWeekKeyWord= listOf(
+val daysOfWeekKeyWordRus= listOf(
         "понедельник",
         "вторник",
         "сред",
         "четверг",
-        "пятница",
-        "суббота",
+        "пятниц",
+        "суббот",
         "воскресенье"
 )
+val daysOfWeekKeyWordEng= listOf(
+        "monday",
+        "tuesday",
+        "wednesday",
+        "thursday",
+        "friday",
+        "saturday",
+        "sunday"
+)
 
-fun <T> deserializationArrayFromGson(json:String): List<T>{
-    val professorListType = object : TypeToken<ArrayList<Professor>>(){}.type
-    return Gson().fromJson<List<T>>(json,professorListType)
+//TODO Обобщенка не работает, читать доки!!!
+fun deserializationArrayFromGsonProfessor(json:String): List<Professor>{
+    val listType = object : TypeToken<List<Professor>>(){}.type
+    return Gson().fromJson<List<Professor>>(json,listType)
+}
+
+fun deserializationArrayFromGsonJoke(json:String): List<Joke>{
+    val listType = object : TypeToken<List<Joke>>(){}.type
+    return Gson().fromJson<List<Joke>>(json,listType)
 }

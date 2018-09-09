@@ -24,37 +24,52 @@ fun messageParamAnalyze(message: String, clazz: Classifier): Map<String, String>
             serializer = GsonSerializer()
         }
     }
+    val messageWord=message.split(" ",",")
     runBlocking {
         when (clazz) {
             Classifier.Professor -> {
                 val response = client.get<HttpResponse>("$BD_SERVER_URL/api/v1/schedule/info/professors")
-                val professors= deserializationArrayFromGson<Professor>(response.readText())
+                val professors = deserializationArrayFromGsonProfessor(response.readText())
 
-                var professorSurname = message.split(",", " ").find { word ->
-                    professors.any { word.contains(it.surname, ignoreCase = true) }
-                } ?: Error.UndefinedProfessorSurname.message
+                val professorSurname=professors.find { professor->
+                    messageWord.any {word->
+                        word.contains(professor.surname,ignoreCase = true)
+                    }
+                }?.surname?:Error.UndefinedProfessorSurname.message
 
-                val daysOfWeek = message.split(","," ").filter {word->
-                    daysOfWeekKeyWord.any { it.contains(word,ignoreCase = true) }
+                val daysOfWeek=daysOfWeekKeyWordRus.filter {day->
+                    messageWord.any {word->
+                        word.contains(day,ignoreCase = true)
+                    }
                 }
 
-                //Избавляемся от склонения
-                professorSurname=professors.find { professorSurname.contains(it.surname,ignoreCase = true)}!!.surname
-
                 params["surname"] = professorSurname
-                params["days"]=daysOfWeek.joinToString(separator = ",")
+                params["days"]= daysOfWeek.joinToString(separator = ",") { day->
+                    val index=daysOfWeekKeyWordRus.indexOf(day)
+                    daysOfWeekKeyWordEng[index]
+                }
             }
             Classifier.Joke -> {
-                val jokes = client.get<List<Joke>>()
-                val jokesTheme = message.split(",", " ").find { word ->
-                    jokes.any { word.contains(it.theme, ignoreCase = true) }
-                } ?: Error.UndefinedJokeTheme.message
+                val response = client.get<HttpResponse>("$BD_SERVER_URL/api/v1/other_themes/jokes")
+                //TODO do only one func for deserializing from GSON to Array
+                val jokes = deserializationArrayFromGsonJoke(response.readText())
+                val jokeThemes=if(messageWord.contains("про")){
+                    jokes.find {joke->
+                        messageWord.any {word->
+                            word.contains(joke.theme, ignoreCase = true)
+                        }
+                    }?.theme?:Error.UndefinedJokeTheme.message
+                }
+                else {
+                    ""
+                }
 
-                params["theme"] = jokesTheme
+                params["theme"] = jokeThemes
 
             }
         }
     }
+    println(params)
     return params
 }
 
@@ -71,9 +86,9 @@ fun messageClassAnalyze(message: String): Classifier {
         }
     }
 
-    return when (setOf(checkClassProfessor, checkClassJoke)) {
-        setOf(true, false) -> Classifier.Professor
-        setOf(false, true) -> Classifier.Joke
+    return when {
+        checkClassProfessor && !checkClassJoke -> Classifier.Professor
+        !checkClassProfessor && checkClassJoke -> Classifier.Joke
         else -> Classifier.Undefined
     }
 

@@ -39,5 +39,24 @@ fun professorHandler(call: ApplicationCall, params: Map<String,String>) {
 }
 
 fun jokeHandler(call: ApplicationCall,params: Map<String,String>) {
-
+    val client=HttpClient(Apache){
+        //config
+    }
+    runBlocking {
+        when(params["theme"]){
+            Error.UndefinedJokeTheme.message->{
+                call.respond(HttpStatusCode.BadRequest, mapOf(
+                        "message" to Error.UndefinedJokeTheme.message
+                ))
+            }
+            ""->{
+                val response=client.get<HttpResponse>("$BD_SERVER_URL/api/v1/other_themes/jokes")
+                call.respond(response.status,response.readText())
+            }
+            else->{
+                val response=client.get<HttpResponse>("$BD_SERVER_URL/api/v1/other_themes/jokes/${params["theme"]}")
+                call.respond(response.status,response.readText())
+            }
+        }
+    }
 }
