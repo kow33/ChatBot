@@ -93,385 +93,13 @@
 
 Пример joke
 
+Ключ "theme" всегда должен иметь значение на русском языке
+
         {
             "id": 1,
-            "theme": "robots",
+            "theme": "робот",
             "body": "\"Робот никогда не заменит человека!\" /Людоед/ "
         }
-
-Пример расписания группы(расписание преподователя аналогично)
-
-    {
-        "group_name": "ИУ5-31Б",
-        "week": {
-            "monday": {
-                "lessons": [
-                    {
-                        "time": "8:30 - 10:05",
-                        "subject": {
-                            "numerator": "",
-                            "denominator": "",
-                            "is_differ": false
-                        }
-                    },
-                    {
-                        "time": "10:15 - 11:50",
-                        "subject": {
-                            "numerator": "Электротехника УЦ,362",
-                            "denominator": "",
-                            "is_differ": true
-                        }
-                    },
-                    {
-                        "time": "12:00 - 13:35",
-                        "subject": {
-                            "numerator": "Электротехника УЦ,362",
-                            "denominator": "",
-                            "is_differ": true
-                        }
-                    },
-                    {
-                        "time": "13:50 - 15:25",
-                        "subject": {
-                            "numerator": "Базовые компоненты Интернет-технологий,362",
-                            "denominator": "Модели данных,306э",
-                            "is_differ": true
-                        }
-                    },
-                    {
-                        "time": "15:40 - 17:15",
-                        "subject": {
-                            "numerator": "Электротехника,362",
-                            "denominator": "Модели данных,306э",
-                            "is_differ": true
-                        }
-                    },
-                    {
-                        "time": "17:25 - 19:00",
-                        "subject": {
-                            "numerator": "",
-                            "denominator": "Модели данных,306э",
-                            "is_differ": true
-                        }
-                    },
-                    {
-                        "time": "19:10 - 20:45",
-                        "subject": {
-                            "numerator": "",
-                            "denominator": "",
-                            "is_differ": false
-                        }
-                    }
-                ],
-                "is_empty": false
-            },
-            "tuesday": {
-                "lessons": [
-                    {
-                        "time": "8:30 - 10:05",
-                        "subject": {
-                            "numerator": "",
-                            "denominator": "",
-                            "is_differ": false
-                        }
-                    },
-                    {
-                        "time": "10:15 - 11:50",
-                        "subject": {
-                            "numerator": "",
-                            "denominator": "",
-                            "is_differ": false
-                        }
-                    },
-                    {
-                        "time": "12:00 - 13:35",
-                        "subject": {
-                            "numerator": "",
-                            "denominator": "",
-                            "is_differ": false
-                        }
-                    },
-                    {
-                        "time": "13:50 - 15:25",
-                        "subject": {
-                            "numerator": "Элективный курс по физической культуре",
-                            "denominator": "Элективный курс по физической культуре",
-                            "is_differ": false
-                        }
-                    },
-                    {
-                        "time": "15:40 - 17:15",
-                        "subject": {
-                            "numerator": "Базовые компоненты Интернет-технологий,224л",
-                            "denominator": "Теория вероятностей и математическая статистика,224л",
-                            "is_differ": true
-                        }
-                    },
-                    {
-                        "time": "17:25 - 19:00",
-                        "subject": {
-                            "numerator": "Архитектура АСОИУ,224л",
-                            "denominator": "Архитектура АСОИУ,224л",
-                            "is_differ": false
-                        }
-                    },
-                    {
-                        "time": "19:10 - 20:45",
-                        "subject": {
-                            "numerator": "",
-                            "denominator": "",
-                            "is_differ": false
-                        }
-                    }
-                ],
-                "is_empty": false
-            },
-            "wednesday": {
-                "lessons": [
-                    {
-                        "time": "8:30 - 10:05",
-                        "subject": {
-                            "numerator": "Физика,кафедра",
-                            "denominator": "",
-                            "is_differ": true
-                        }
-                    },
-                    {
-                        "time": "10:15 - 11:50",
-                        "subject": {
-                            "numerator": "Физика,кафедра",
-                            "denominator": "Физика,427ю",
-                            "is_differ": true
-                        }
-                    },
-                    {
-                        "time": "12:00 - 13:35",
-                        "subject": {
-                            "numerator": "Модели данных,501ю",
-                            "denominator": "Модели данных,501ю",
-                            "is_differ": false
-                        }
-                    },
-                    {
-                        "time": "13:50 - 15:25",
-                        "subject": {
-                            "numerator": "Электротехника,501ю",
-                            "denominator": "Электротехника,501ю",
-                            "is_differ": false
-                        }
-                    },
-                    {
-                        "time": "15:40 - 17:15",
-                        "subject": {
-                            "numerator": "",
-                            "denominator": "Электротехника,427ю",
-                            "is_differ": true
-                        }
-                    },
-                    {
-                        "time": "17:25 - 19:00",
-                        "subject": {
-                            "numerator": "",
-                            "denominator": "",
-                            "is_differ": false
-                        }
-                    },
-                    {
-                        "time": "19:10 - 20:45",
-                        "subject": {
-                            "numerator": "",
-                            "denominator": "",
-                            "is_differ": false
-                        }
-                    }
-                ],
-                "is_empty": false
-            },
-            "thursday": {
-                "lessons": [
-                    {
-                        "time": "8:30 - 10:05",
-                        "subject": {
-                            "numerator": "",
-                            "denominator": "",
-                            "is_differ": false
-                        }
-                    },
-                    {
-                        "time": "10:15 - 11:50",
-                        "subject": {
-                            "numerator": "",
-                            "denominator": "",
-                            "is_differ": false
-                        }
-                    },
-                    {
-                        "time": "12:00 - 13:35",
-                        "subject": {
-                            "numerator": "Модели данных УЦ,306э",
-                            "denominator": "",
-                            "is_differ": true
-                        }
-                    },
-                    {
-                        "time": "13:50 - 15:25",
-                        "subject": {
-                            "numerator": "Модели данных УЦ,306э",
-                            "denominator": "",
-                            "is_differ": true
-                        }
-                    },
-                    {
-                        "time": "15:40 - 17:15",
-                        "subject": {
-                            "numerator": "Физика,328",
-                            "denominator": "Физика,328",
-                            "is_differ": false
-                        }
-                    },
-                    {
-                        "time": "17:25 - 19:00",
-                        "subject": {
-                            "numerator": "Правоведение,501ю",
-                            "denominator": "Правоведение,501ю",
-                            "is_differ": false
-                        }
-                    },
-                    {
-                        "time": "19:10 - 20:45",
-                        "subject": {
-                            "numerator": "",
-                            "denominator": "",
-                            "is_differ": false
-                        }
-                    }
-                ],
-                "is_empty": false
-            },
-            "friday": {
-                "lessons": [
-                    {
-                        "time": "8:30 - 10:05",
-                        "subject": {
-                            "numerator": "",
-                            "denominator": "",
-                            "is_differ": false
-                        }
-                    },
-                    {
-                        "time": "10:15 - 11:50",
-                        "subject": {
-                            "numerator": "",
-                            "denominator": "",
-                            "is_differ": false
-                        }
-                    },
-                    {
-                        "time": "12:00 - 13:35",
-                        "subject": {
-                            "numerator": "",
-                            "denominator": "",
-                            "is_differ": false
-                        }
-                    },
-                    {
-                        "time": "13:50 - 15:25",
-                        "subject": {
-                            "numerator": "",
-                            "denominator": "",
-                            "is_differ": false
-                        }
-                    },
-                    {
-                        "time": "15:40 - 17:15",
-                        "subject": {
-                            "numerator": "Иностранный язык",
-                            "denominator": "Иностранный язык",
-                            "is_differ": false
-                        }
-                    },
-                    {
-                        "time": "17:25 - 19:00",
-                        "subject": {
-                            "numerator": "Теория вероятности и математическая статистика,534л",
-                            "denominator": "Теория вероятности и математическая статистика,534л",
-                            "is_differ": false
-                        }
-                    },
-                    {
-                        "time": "19:10 - 20:45",
-                        "subject": {
-                            "numerator": "",
-                            "denominator": "",
-                            "is_differ": false
-                        }
-                    }
-                ],
-                "is_empty": false
-            },
-            "saturday": {
-                "lessons": [
-                    {
-                        "time": "8:30 - 10:05",
-                        "subject": {
-                            "numerator": "Экология,114л",
-                            "denominator": "Экология,218л",
-                            "is_differ": true
-                        }
-                    },
-                    {
-                        "time": "10:15 - 11:50",
-                        "subject": {
-                            "numerator": "Теория вероятности и математическая статистика,218л",
-                            "denominator": "Теория вероятности и математическая статистика,218л",
-                            "is_differ": false
-                        }
-                    },
-                    {
-                        "time": "12:00 - 13:35",
-                        "subject": {
-                            "numerator": "Правоведение,536л",
-                            "denominator": "",
-                            "is_differ": true
-                        }
-                    },
-                    {
-                        "time": "13:50 - 15:25",
-                        "subject": {
-                            "numerator": "Элективный курс по физической культуре",
-                            "denominator": "Элективный курс по физической культуре",
-                            "is_differ": false
-                        }
-                    },
-                    {
-                        "time": "15:40 - 17:15",
-                        "subject": {
-                            "numerator": "",
-                            "denominator": "",
-                            "is_differ": false
-                        }
-                    },
-                    {
-                        "time": "17:25 - 19:00",
-                        "subject": {
-                            "numerator": "",
-                            "denominator": "",
-                            "is_differ": false
-                        }
-                    },
-                    {
-                        "time": "19:10 - 20:45",
-                        "subject": {
-                            "numerator": "",
-                            "denominator": "",
-                            "is_differ": false
-                        }
-                    }
-                ],
-                "is_empty": false
-            }
-        }
-    }
 
 Пример ответа на запрос: api/v1/send_message
 
@@ -480,6 +108,7 @@
     {
 	    "message": "Отправь расписание Козлова на понедельник и пятницу"
     }
+    
 Ответ на запрос:
 
     [
@@ -619,5 +248,45 @@
             }
         }
     ]
+    
+Пример ответа на запрос: api/v1/send_message
+    
+    Тело запроса:
+    
+        {
+        	 "message": "Расскажи анектодты про роботов)"
+        }
+        
+Ответ на запрос:
+    
+        [
+            {
+                "id": 1,
+                "theme": "робот",
+                "body": "\"Робот никогда не заменит человека!\" /Людоед/ "
+            }
+        ]
 
+Пример ответа на запрос: api/v1/send_message
+    
+    Тело запроса:
+    
+        {
+        	 "message": "Хочу анектодты)"
+        }
+        
+Ответ на запрос:
+    
+        [
+            {
+                "id": 1,
+                "theme": "робот",
+                "body": "\"Робот никогда не заменит человека!\" /Людоед/ "
+            },
+            {
+                "id": 2,
+                "theme": "студент",
+                "body": "— Профессор, а что вы говорите своим выпускникам при встрече? — Большую колу и картошечку фри, пожалуйста."
+            }
+        ]
 
