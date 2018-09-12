@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Data</title>
+</head>
+<body>
+<form action="/api/v1/add_professors" method="post">
+    <label for="surname">Surname: </label>
+    <input type="text" name="surname" id="surname"><br>
+
+    <label for="firstname">Firstname: </label>
+    <input type="text" name="firstname" id="firstname"><br>
+
+    <label for="patronymic">Patronymic: </label>
+    <input type="text" name="patronymic" id="patronymic"><br>
+
+    <label for="chair">Chair: </label>
+    <input type="text" name="chair" id="chair"><br>
+
+    <div style="margin-left: 10px">
+        {{range .Days}}
+            {{$DayName := .Name}}
+            <p><strong>{{.Name}}</strong></p>
+                <label for="is_empty">Is day empty: </label>
+                <input type="checkbox" name="{{.Name}}_is_empty" id="is_empty"><br>
+            {{range .Lessons}}
+            <div style="margin-left: 10px">
+                <p>Lesson {{.Number}}: <br>
+                    <label for="time">Time:</label>
+                    <input type="text" name="{{$DayName}}_lesson_{{.Number}}_time"
+                           id="time"
+                            value="{{.Time}}" readonly><br>
+
+                    <label for="numerator">Nominator:</label>
+                    <input type="text" name="{{$DayName}}_lesson_{{.Number}}_numerator"
+                           id="numerator"><br>
+
+                    <label for="denominator">Denominator:</label>
+                    <input type="text" name="{{$DayName}}_lesson_{{.Number}}_denominator"
+                           id="denominator"><br>
+                </p>
+            </div>
+            {{end}}
+        {{end}}
+    </div>
+
+    <input type="submit">
+</form>
+</body>
+</html>

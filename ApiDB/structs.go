@@ -36,12 +36,11 @@ type Week struct {
 
 type Day struct {
 	Lessons 		[]*Lesson 	`json:"lessons"`
-	IsEmpty 		bool      	`json:"is_empty"`
 }
 
 type Lesson struct {
 	Time    		string   	`json:"time"`
-	Subject 		*Subject 	`json:"subject"`
+	Subject 		Subject 	`json:"subject"`
 }
 
 type Subject struct {

@@ -61,6 +61,8 @@ func main() {
 	r.HandleFunc("/api/v1/other_themes/jokes/{id}", BasicAuth(JokeHandler)).Methods( "PUT", "DELETE")
 	r.HandleFunc("/api/v1/other_themes/info/jokes", JokesInfoHandler).Methods("GET")
 
+	r.HandleFunc("/api/v1/add_professors", BasicAuth(AddProfessorHandler))
+
 	log.Printf("Server started on %s\n", addr)
 
 	if err := http.ListenAndServe(addr, r); err != nil {
