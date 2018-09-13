@@ -35,7 +35,7 @@ type Week struct {
 }
 
 type Day struct {
-	Lessons 		[]*Lesson 	`json:"lessons"`
+	Lessons 		[]Lesson 	`json:"lessons"`
 }
 
 type Lesson struct {

@@ -73,9 +73,9 @@ func AddProfessorHandler(w http.ResponseWriter, r *http.Request) {
 
 		for _, dayStr := range days {
 			if transformBool(r.FormValue(dayStr + "_is_empty")) {
-				var lessons []*Lesson
-				for i := 0; i < 5; i++ {
-					lesson := &Lesson{}
+				var lessons []Lesson
+				for i := 0; i < 7; i++ {
+					lesson := Lesson{}
 					lesson.Time = r.FormValue(dayStr + "_lesson_" + strconv.Itoa(i+1) + "_time")
 					lesson.Subject.Numerator =
 						r.FormValue(dayStr + "_lesson_" + strconv.Itoa(i+1) + "_numerator")
