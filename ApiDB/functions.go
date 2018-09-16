@@ -64,10 +64,9 @@ func BasicAuth(h http.HandlerFunc) http.HandlerFunc {
 func LogHandlerFunc(h http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		log.Printf("\n" +
-			"Connect from: %s\n" +
 			"Url: %s\n" +
-			"Method: %s\n",
-			r.Host, r.URL, r.Method)
+			"Method: %s\n\n",
+			r.URL, r.Method)
 		h.ServeHTTP(w, r)
 	}
 }
