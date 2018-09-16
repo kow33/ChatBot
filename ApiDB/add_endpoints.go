@@ -136,3 +136,56 @@ func AddProfessorHandler(w http.ResponseWriter, r *http.Request) {
 		w.Write(bodyText)
 	}
 }
+
+func AddJokeHandler(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case http.MethodGet:
+		form, err := ioutil.ReadFile("static/api/addJoke.html")
+		if ServerError(err, http.StatusInternalServerError, w) {
+			return
+		}
+		w.WriteHeader(http.StatusOK)
+		w.Write(form)
+	case http.MethodPost:
+		r.ParseForm()
+
+		var joke Joke
+		joke.Theme = r.FormValue("theme")
+		joke.Body = r.FormValue("body")
+
+		jsonData, err := json.Marshal(joke)
+		if ServerError(err, http.StatusInternalServerError, w) {
+			return
+		}
+		URL := "http://"
+		if ip == "" {
+			URL += "localhost:" + port
+		} else {
+			URL += addr
+		}
+
+		URL += "/api/v1/other_themes/jokes"
+
+		req, err := http.NewRequest("POST", URL, bytes.NewReader(jsonData))
+		if ServerError(err, http.StatusInternalServerError, w) {
+			return
+		}
+		req.Header.Set("content-type", "application/json")
+		req.SetBasicAuth("bmstuAdmin", "bmstuPassword")
+
+		resp, err := (&http.Client{}).Do(req)
+		if ServerError(err, http.StatusBadRequest, w) {
+			return
+		}
+
+		bodyText, err := ioutil.ReadAll(resp.Body)
+
+		if ServerError(err, http.StatusInternalServerError, w) {
+			return
+		}
+
+		w.WriteHeader(resp.StatusCode)
+		w.Header().Set("content-type", resp.Header.Get("content-type"))
+		w.Write(bodyText)
+	}
+}

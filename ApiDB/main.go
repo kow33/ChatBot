@@ -74,6 +74,8 @@ func main() {
 	r.HandleFunc("/api/v1/add_professors", BasicAuth(LogHandlerFunc(AddProfessorHandler)))
 	r.HandleFunc("/professors", LogHandlerFunc(ProfessorTemplateHandler)).
 		Methods("GET")
+
+	r.HandleFunc("/api/v1/add_jokes", BasicAuth(LogHandlerFunc(AddJokeHandler)))
 	r.HandleFunc("/jokes", LogHandlerFunc(JokesTemplateHandler)).
 		Methods("GET")
 
