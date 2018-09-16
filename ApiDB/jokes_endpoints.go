@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"github.com/gorilla/mux"
 	"net/http"
+	"sort"
+	"strings"
 )
 
 func JokesHandler(w http.ResponseWriter, r *http.Request) {
@@ -214,14 +216,18 @@ func JokesTemplateHandler(w http.ResponseWriter, r *http.Request) {
 	if ServerError(err, req.StatusCode, w) {
 		return
 	}
-	var professors []Joke
+	var jokes []Joke
+	err = json.NewDecoder(req.Body).Decode(&jokes)
 
-	err = json.NewDecoder(req.Body).Decode(&professors)
+	sort.Slice(jokes[:], func(i, j int) bool {
+		return strings.Compare(jokes[i].Theme, jokes[j].Theme) == -1
+	})
+
 	if ServerError(err, http.StatusInternalServerError, w) {
 		return
 	}
 
-	err = templates.ExecuteTemplate(w, "jokes.gohtml", professors)
+	err = templates.ExecuteTemplate(w, "jokes.gohtml", jokes)
 	if ServerError(err, http.StatusInternalServerError, w) {
 		return
 	}

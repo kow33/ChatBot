@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"github.com/gorilla/mux"
 	"net/http"
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -301,6 +302,10 @@ func ProfessorTemplateHandler(w http.ResponseWriter, r *http.Request) {
 	if ServerError(err, http.StatusInternalServerError, w) {
 		return
 	}
+
+	sort.Slice(professors[:], func(i, j int) bool {
+		return strings.Compare(professors[i].Surname, professors[j].Surname) == -1
+	})
 
 	err = templates.ExecuteTemplate(w, "professors.gohtml", struct {
 		Professors []Professor
