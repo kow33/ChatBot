@@ -1,7 +1,5 @@
 package com.example
 
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.apache.Apache
 import io.ktor.client.features.json.GsonSerializer
@@ -9,12 +7,7 @@ import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.request.get
 import io.ktor.client.response.HttpResponse
 import io.ktor.client.response.readText
-import io.ktor.gson.GsonConverter
 import kotlinx.coroutines.experimental.runBlocking
-import java.util.ArrayList
-import com.google.gson.reflect.TypeToken
-
-
 
 
 fun messageParamAnalyze(message: String, clazz: Classifier): Map<String, String> {
@@ -31,19 +24,20 @@ fun messageParamAnalyze(message: String, clazz: Classifier): Map<String, String>
                 val response = client.get<HttpResponse>("$BD_SERVER_URL/api/v1/schedule/info/professors")
                 val professors = deserializationArrayFromGsonProfessor(response.readText())
 
-                val professorSurname=professors.find { professor->
+
+                val professorSurnames = professors.filter { professor->
                     messageWord.any {word->
-                        word.contains(professor.surname,ignoreCase = true)
+                        levensteinDistance(word,professor.surname)<=ProfessorLevensteinDistance
                     }
-                }?.surname?:Error.UndefinedProfessorSurname.message
+                }.map { it.surname }
 
                 val daysOfWeek=daysOfWeekKeyWordRus.filter {day->
                     messageWord.any {word->
-                        word.contains(day,ignoreCase = true)
+                        levensteinDistance(word,day)<= DaysLevensteinDistance
                     }
                 }
 
-                params["surname"] = professorSurname
+                params["surname"] = if(professorSurnames.isNotEmpty()) professorSurnames.joinToString(",") else Error.UndefinedProfessorSurname.message
                 params["days"]= daysOfWeek.joinToString(separator = ",") { day->
                     val index=daysOfWeekKeyWordRus.indexOf(day)
                     daysOfWeekKeyWordEng[index]
@@ -65,11 +59,12 @@ fun messageParamAnalyze(message: String, clazz: Classifier): Map<String, String>
                 }
 
                 params["theme"] = jokeThemes
+            }
+            Classifier.Undefined->{
 
             }
         }
     }
-    println(params)
     return params
 }
 

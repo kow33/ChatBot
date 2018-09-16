@@ -34,7 +34,7 @@ fun Application.module() {
                 when (clazz) {
                     Classifier.Professor -> professorHandler(call,params)
                     Classifier.Joke -> jokeHandler(call,params)
-                    else -> call.respond(mapOf("message" to Error.UndefinedClass))
+                    else -> call.respond(mapOf("message" to Error.UndefinedClass.message))
                 }
             }
 //            get("/item/{key}") {
