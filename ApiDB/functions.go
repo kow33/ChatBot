@@ -35,7 +35,7 @@ func BasicAuth(h http.HandlerFunc) http.HandlerFunc {
 
 		s := strings.SplitN(r.Header.Get("Authorization"), " ", 2)
 		if len(s) != 2 {
-			ServerError(errors.New("not authorized"), http.StatusUnauthorized, w)
+			ServerError(errors.New("no authorized"), http.StatusUnauthorized, w)
 			return
 		}
 
