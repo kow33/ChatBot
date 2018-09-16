@@ -3,13 +3,10 @@ package main
 import (
 	"bytes"
 	"encoding/json"
-	"html/template"
 	"io/ioutil"
 	"net/http"
 	"strconv"
 )
-
-var templates = template.Must(template.ParseGlob("templates/*"))
 
 type ProfessorTemp struct {
 	Days []DayTemp
@@ -56,8 +53,8 @@ func AddProfessorHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		err := templates.ExecuteTemplate(w, "professor.gohtml", data)
-		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
+		if ServerError(err, http.StatusInternalServerError, w) {
+			return
 		}
 	case http.MethodPost:
 		r.ParseForm()

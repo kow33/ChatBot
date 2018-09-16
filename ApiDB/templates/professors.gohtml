@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<table border="1px">
+    <tr>
+        <td>№</td>
+        <td>Преподаватель</td>
+        <td>Понедельник</td>
+        <td>Вторник</td>
+        <td>Среда</td>
+        <td>Четверг</td>
+        <td>Пятница</td>
+        <td>Суббота</td>
+    </tr>
+    {{range $i, $Professor := .}}
+    <tr>
+        <td>{{$i}}</td>
+        <td>{{$Professor.Surname}} {{$Professor.Firstname}}
+        {{$Professor.Patronymic}}, {{$Professor.Chair}}</td>
+        <td>
+        {{if $Professor.Week.Monday}}
+            {{template "dayLessons" $Professor.Week.Monday}}
+        {{end}}
+        </td>
+        <td>
+        {{if $Professor.Week.Tuesday}}
+            {{template "dayLessons" $Professor.Week.Tuesday}}
+        {{end}}
+        </td>
+        <td>
+        {{if $Professor.Week.Wednesday}}
+            {{template "dayLessons" $Professor.Week.Wednesday}}
+        {{end}}
+        </td>
+        <td>
+        {{if $Professor.Week.Thursday}}
+            {{template "dayLessons" $Professor.Week.Thursday}}
+        {{end}}
+        </td>
+        <td>
+        {{if $Professor.Week.Friday}}
+            {{template "dayLessons" $Professor.Week.Friday}}
+        {{end}}
+        </td>
+        <td>
+        {{if $Professor.Week.Saturday}}
+            {{template "dayLessons" $Professor.Week.Saturday}}
+        {{end}}
+        </td>
+    </tr>
+    {{end}}
+</table>
+
+</body>
+</html>

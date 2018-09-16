@@ -1,0 +1,19 @@
+{{define "dayLessons"}}
+    <table border="1px">
+    {{range .Lessons}}
+        <tr>
+            <td>{{.Time}}</td>
+        {{if .Subject.IsDiffer}}
+            <td>
+                <table>
+                    <tr><td>{{.Subject.Numerator}}</td></tr>
+                    <tr><td>{{.Subject.Denominator}}</td></tr>
+                </table>
+            </td>
+        {{else}}
+            <td>{{.Subject.Numerator}}</td>
+        {{end}}
+        </tr>
+    {{end}}
+    </table>
+{{end}}

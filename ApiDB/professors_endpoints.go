@@ -281,3 +281,29 @@ func ProfessorsInfoHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("content-type", "application/json")
 	json.NewEncoder(w).Encode(professors)
 }
+
+func ProfessorTemplateHandler(w http.ResponseWriter, r *http.Request) {
+	URL := "http://"
+	if ip == "" {
+		URL += "localhost:" + port
+	} else {
+		URL += addr
+	}
+	URL += "/api/v1/schedule/professors"
+
+	req, err := http.Get(URL)
+	if ServerError(err, req.StatusCode, w) {
+		return
+	}
+	var professors []Professor
+
+	err = json.NewDecoder(req.Body).Decode(&professors)
+	if ServerError(err, http.StatusInternalServerError, w) {
+		return
+	}
+
+	err = templates.ExecuteTemplate(w, "professors.gohtml", professors)
+	if ServerError(err, http.StatusInternalServerError, w) {
+		return
+	}
+}
