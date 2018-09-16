@@ -47,7 +47,7 @@ func main() {
 	r := mux.NewRouter()
 
 	r.Handle("/", http.RedirectHandler("/api", http.StatusOK))
-	r.HandleFunc("/api", HomeHandler)
+	r.HandleFunc("/api", LogHandlerFunc(HomeHandler))
 
 	r.HandleFunc("/api/v1/schedule/professors", BasicAuth(LogHandlerFunc(ProfessorsHandler)))
 	r.HandleFunc("/api/v1/schedule/professors/{surname}", LogHandlerFunc(ProfessorGetHandler)).
