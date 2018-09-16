@@ -74,6 +74,8 @@ func main() {
 	r.HandleFunc("/api/v1/add_professors", BasicAuth(LogHandlerFunc(AddProfessorHandler)))
 	r.HandleFunc("/professors", LogHandlerFunc(ProfessorTemplateHandler)).
 		Methods("GET")
+	r.HandleFunc("/jokes", LogHandlerFunc(JokesTemplateHandler)).
+		Methods("GET")
 
 	log.Printf("Server started on %s\n", addr)
 

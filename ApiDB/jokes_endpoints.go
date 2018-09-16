@@ -200,3 +200,29 @@ func JokesInfoHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("content-type", "application/json")
 	json.NewEncoder(w).Encode(jokes)
 }
+
+func JokesTemplateHandler(w http.ResponseWriter, r *http.Request) {
+	URL := "http://"
+	if ip == "" {
+		URL += "localhost:" + port
+	} else {
+		URL += addr
+	}
+	URL += "/api/v1/other_themes/jokes"
+
+	req, err := http.Get(URL)
+	if ServerError(err, req.StatusCode, w) {
+		return
+	}
+	var professors []Joke
+
+	err = json.NewDecoder(req.Body).Decode(&professors)
+	if ServerError(err, http.StatusInternalServerError, w) {
+		return
+	}
+
+	err = templates.ExecuteTemplate(w, "jokes.gohtml", professors)
+	if ServerError(err, http.StatusInternalServerError, w) {
+		return
+	}
+}
