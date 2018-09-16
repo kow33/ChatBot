@@ -112,3 +112,45 @@ func (w *Week) UnmarshalServerWeek(days []string, week [][]byte) error {
 
 	return nil
 }
+
+func (w *Week) GetTimesFromWeek() []string {
+	var times []string
+	if w.Monday != nil {
+		for _, lesson := range w.Monday.Lessons {
+			times = append(times, lesson.Time)
+		}
+		return times
+	}
+	if w.Tuesday != nil {
+		for _, lesson := range w.Tuesday.Lessons {
+			times = append(times, lesson.Time)
+		}
+		return times
+	}
+	if w.Wednesday != nil {
+		for _, lesson := range w.Wednesday.Lessons {
+			times = append(times, lesson.Time)
+		}
+		return times
+	}
+	if w.Thursday != nil {
+		for _, lesson := range w.Thursday.Lessons {
+			times = append(times, lesson.Time)
+		}
+		return times
+	}
+	if w.Friday != nil {
+		for _, lesson := range w.Friday.Lessons {
+			times = append(times, lesson.Time)
+		}
+		return times
+	}
+	if w.Saturday != nil {
+		for _, lesson := range w.Saturday.Lessons {
+			times = append(times, lesson.Time)
+		}
+		return times
+	}
+
+	return times
+}

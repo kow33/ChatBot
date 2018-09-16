@@ -2,16 +2,20 @@
     <table border="1px">
     {{range .Lessons}}
         <tr>
-            <td><strong>{{.Time}}</strong></td>
         {{if .Subject.IsDiffer}}
             <td>
+                <style>
+                    table {
+                        height: 75px;
+                    }
+                </style>
                 <table>
                     <tr><td>чс {{.Subject.Numerator}}</td></tr>
                     <tr><td>зн {{.Subject.Denominator}}</td></tr>
                 </table>
             </td>
         {{else}}
-            <td>{{.Subject.Numerator}}</td>
+            <td height="75px">{{.Subject.Numerator}}</td>
         {{end}}
         </tr>
     {{end}}

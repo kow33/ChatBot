@@ -9,7 +9,7 @@
     table {
         text-align: center;
         width: 100%;
-        height: 100%;
+        border-collapse: collapse;
     }
     td {
         padding: 5px;
@@ -19,6 +19,7 @@
     <tr>
         <td><strong>№</strong></td>
         <td><strong>Преподаватель</strong></td>
+        <td><strong>Время</strong></td>
         <td><strong>Понедельник</strong></td>
         <td><strong>Вторник</strong></td>
         <td><strong>Среда</strong></td>
@@ -26,39 +27,61 @@
         <td><strong>Пятница</strong></td>
         <td><strong>Суббота</strong></td>
     </tr>
-    {{range $i, $Professor := .}}
+    {{$times := .Times}}
+    {{range $i, $Professor := .Professors}}
     <tr>
         <td>{{$i}}</td>
         <td>{{$Professor.Surname}} {{$Professor.Firstname}}
         {{$Professor.Patronymic}}, {{$Professor.Chair}}</td>
         <td>
+            <table border="1px">
+            {{range $times}}
+                <tr>
+                    <td height="75px"><strong>{{.}}</strong></td>
+                </tr>
+            {{end}}
+            </table>
+        </td>
+        <td>
         {{if $Professor.Week.Monday}}
             {{template "dayLessons" $Professor.Week.Monday}}
+        {{else}}
+            {{template "emptyDay" $times}}
         {{end}}
         </td>
         <td>
         {{if $Professor.Week.Tuesday}}
             {{template "dayLessons" $Professor.Week.Tuesday}}
+        {{else}}
+            {{template "emptyDay" $times}}
         {{end}}
         </td>
         <td>
         {{if $Professor.Week.Wednesday}}
             {{template "dayLessons" $Professor.Week.Wednesday}}
+        {{else}}
+            {{template "emptyDay" $times}}
         {{end}}
         </td>
         <td>
         {{if $Professor.Week.Thursday}}
             {{template "dayLessons" $Professor.Week.Thursday}}
+        {{else}}
+            {{template "emptyDay" $times}}
         {{end}}
         </td>
         <td>
         {{if $Professor.Week.Friday}}
             {{template "dayLessons" $Professor.Week.Friday}}
+        {{else}}
+            {{template "emptyDay" $times}}
         {{end}}
         </td>
         <td>
         {{if $Professor.Week.Saturday}}
             {{template "dayLessons" $Professor.Week.Saturday}}
+        {{else}}
+            {{template "emptyDay" $times}}
         {{end}}
         </td>
     </tr>

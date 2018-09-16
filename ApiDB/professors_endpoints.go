@@ -302,7 +302,13 @@ func ProfessorTemplateHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = templates.ExecuteTemplate(w, "professors.gohtml", professors)
+	err = templates.ExecuteTemplate(w, "professors.gohtml", struct {
+		Professors []Professor
+		Times []string
+	}{
+		professors,
+		professors[0].Week.GetTimesFromWeek(),
+	})
 	if ServerError(err, http.StatusInternalServerError, w) {
 		return
 	}
