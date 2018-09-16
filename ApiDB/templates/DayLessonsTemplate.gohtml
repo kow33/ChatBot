@@ -2,7 +2,7 @@
     <table border="1px">
     {{range .Lessons}}
         <tr>
-        {{if and .Subject.IsDiffer (and .Subject.Numerator .Subject.Denominator)}}
+        {{if .Subject.IsDiffer}}
             <td>
                 <style>
                     table {
@@ -14,12 +14,8 @@
                     <tr><td>зн {{.Subject.Denominator}}</td></tr>
                 </table>
             </td>
-        {{else if .Subject.Numerator}}
-            <td height="100px">{{.Subject.Numerator}}</td>
-        {{else if .Subject.Denominator}}
-            <td height="100px">{{.Subject.Denominator}}</td>
         {{else}}
-            <td height="100px"></td>
+            <td height="100px">{{.Subject.Denominator}}</td>
         {{end}}
         </tr>
     {{end}}
