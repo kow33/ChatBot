@@ -47,7 +47,7 @@ func main() {
 	r := mux.NewRouter()
 
 	r.Handle("/", http.RedirectHandler("/api", http.StatusOK))
-	r.HandleFunc("/api", LogHandlerFunc(HomeHandler))
+	r.HandleFunc("/api", LogHandlerFunc(DocsHandler))
 
 	r.HandleFunc("/api/v1/schedule/professors", BasicAuth(LogHandlerFunc(ProfessorsHandler)))
 	r.HandleFunc("/api/v1/schedule/professors/{surname}", LogHandlerFunc(ProfessorGetHandler)).
@@ -71,11 +71,11 @@ func main() {
 	r.HandleFunc("/api/v1/other_themes/info/jokes", LogHandlerFunc(JokesInfoHandler)).
 		Methods("GET")
 
-	r.HandleFunc("/api/v1/add_professors", BasicAuth(LogHandlerFunc(AddProfessorHandler)))
+	r.HandleFunc("/add_professor", BasicAuth(LogHandlerFunc(AddProfessorHandler)))
 	r.HandleFunc("/professors", LogHandlerFunc(ProfessorTemplateHandler)).
 		Methods("GET")
 
-	r.HandleFunc("/api/v1/add_jokes", BasicAuth(LogHandlerFunc(AddJokeHandler)))
+	r.HandleFunc("/add_joke", BasicAuth(LogHandlerFunc(AddJokeHandler)))
 	r.HandleFunc("/jokes", LogHandlerFunc(JokesTemplateHandler)).
 		Methods("GET")
 

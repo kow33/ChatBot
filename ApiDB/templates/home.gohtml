@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<style>
+    h1, h2 {
+        text-align: center;
+    }
+</style>
+<body>
+<h1>МГТУ имени Н. Э. Баумана</h1>
+<h2>API for BMSTU Info Database</h2>
+<p><b>Исполнители:</b></p>
+<ul>
+{{range .Performers}}
+    <li>{{.Name}}</li>
+{{end}}
+</ul>
+<p><b>Руководители:</b></p>
+<ul>
+{{range .Seniors}}
+    <li>{{.Name}}</li>
+{{end}}
+</ul>
+<div>
+    <b>Описание:</b><br>
+    Api для получение данных из информационной базы данных МГТУ имени Н. Э. Баумана<br>
+    <b>Доступные функции:</b><br>
+    <ul>
+    {{range .MainFuncs}}
+        <li>{{.}}</li>
+    {{end}}
+    </ul>
+    <b>Дополнительные функции:</b><br>
+{{if .OtherFuncs}}
+    <ul>
+    {{range .OtherFuncs}}
+        <li>{{.}}</li>
+    {{end}}
+    </ul>
+{{end}}
+</div>
+<div>
+    <b>Документация:</b><br>
+    <ul>
+    {{range .Docs}}
+        <li>
+            <strong>"{{.Path}}"</strong> - <br>
+            <b>Доступные методы:</b>
+            <ul>
+            {{range .Methods}}
+                <li><strong>{{.Type}}</strong> - {{.Desc}}</li>
+            {{end}}
+            </ul>
+            {{if .Params}}
+                <b>Доступные параметры:</b>
+                <ul>
+                {{range .Params}}
+                    <li>
+                        <strong>{{.Name}}</strong> - {{.Desc}}<br>
+                    {{if .Comments}}
+                        <br>
+                        {{range .Comments}}
+                            {{.}}<br>
+                        {{end}}
+                        <br>
+                    {{end}}
+                    {{if .Example}}
+                        <strong>Пример: </strong>
+                        <a href="{{.Example}}">
+                            <i>{{.Example}}</i>
+                        </a>
+                    {{end}}
+                    </li>
+                {{end}}
+                </ul>
+            {{end}}
+        </li>
+    {{end}}
+    </ul>
+</div>
+<div>
+{{range .Structures}}
+    <h3>{{.Header}}</h3>
+{{if .Comments}}
+    {{range .Comments}}
+        <string>{{.}}</string><br>
+    {{end}}
+{{end}}
+    <code>
+    {{range .Json}}
+    {{.}}<br>
+    {{end}}
+    </code>
+{{end}}
+</div>
+<div>
+{{range .Examples}}
+    <h3>{{.Header}}</h3>
+    From: <a href="{{.From}}"><i>{{.From}}</i></a>
+    <pre>{{.Json}}</pre>
+{{end}}
+</div>
+</body>
+</html>

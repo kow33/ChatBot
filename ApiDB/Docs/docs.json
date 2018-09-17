@@ -1,0 +1,413 @@
+{
+  "performers": [
+    {
+      "name": "Кочетков Михаил Дмитриевич"
+    },
+    {
+      "name": "Сукиасян Владимир Мартунович"
+    }
+  ],
+  "seniors": [
+    {
+      "name": "Терехов Валерий Игоревич"
+    },
+    {
+      "name": "Иван"
+    }
+  ],
+  "main_funcs": [
+    "Расписание групп(на 6 рабочих дней)",
+    "Расписание преподавателей(на 6 рабочих дней)"
+  ],
+  "other_funcs": [
+    "Анекдоты"
+  ],
+  "docs": [
+    {
+      "path": "/professors",
+      "methods": [
+        {
+          "type": "GET",
+          "desc": "получение таблицы расписаний преподавателей"
+        }
+      ],
+      "params": null
+    },
+    {
+      "path": "/add_professor",
+      "methods": [
+        {
+          "type": "GET",
+          "desc": "получение формы для добавления нового расписания преподавателя"
+        },
+        {
+          "type": "POST",
+          "desc": "добавление нового расписания преподавателя из формы"
+        }
+      ],
+      "params": null
+    },
+    {
+      "path": "/api/v1/schedule/info/professors",
+      "methods": [
+        {
+          "type": "GET",
+          "desc": "получение списка преподавателей без расписания (имя, фамилия, отчество, кафедра)"
+        }
+      ],
+      "params": null
+    },
+    {
+      "path": "/api/v1/schedule/professors",
+      "methods": [
+        {
+          "type": "GET",
+          "desc": "получение всего списка расписаний преподавателей"
+        },
+        {
+          "type": "POST",
+          "desc": "добавление нового расписания преподавателя"
+        }
+      ],
+      "params": [
+        {
+          "name": "days",
+          "desc": "список дней, разделенные запятыми, которые должны быть в расписании",
+          "comments": [
+            "В структуре JSON дни, не входящие в этот список, имеют в поле \"lessons\" значение null"
+          ],
+          "example": "/api/v1/schedule/professors?days=monday,wednesday"
+        },
+        {
+          "name": "limit",
+          "desc": "количество записей",
+          "comments": null,
+          "example": "/api/v1/schedule/professors?limit=1"
+        },
+        {
+          "name": "offset",
+          "desc": "сколько записей от начала списка нужно пропустить",
+          "comments": [
+            "Только, если установлен параметр limit"
+          ],
+          "example": "/api/v1/schedule/professors?limit=1;offset=1"
+        }
+      ]
+    },
+    {
+      "path": "/api/v1/schedule/professors/{surname}",
+      "methods": [
+        {
+          "type": "GET",
+          "desc": "получение списка расписаний преподавателей с фамилий surname"
+        }
+      ],
+      "params": [
+        {
+          "name": "days",
+          "desc": "список дней, разделенные запятыми, которые должны быть в расписании",
+          "comments": [
+            "В структуре JSON дни, не входящие в этот список, имеют в поле \"lessons\" значение null"
+          ],
+          "example": "/api/v1/schedule/professors/Козлов?days=monday,wednesday"
+        },
+        {
+          "name": "limit",
+          "desc": "количество записей",
+          "comments": null,
+          "example": "/api/v1/schedule/professors/Козлов?limit=1"
+        },
+        {
+          "name": "offset",
+          "desc": "сколько записей от начала списка нужно пропустить",
+          "comments": [
+            "Только, если установлен параметр limit"
+          ],
+          "example": "/api/v1/schedule/professors/Козлов?limit=1;offset=1"
+        }
+      ]
+    },
+    {
+      "path": "/api/v1/schedule/professors/{id}",
+      "methods": [
+        {
+          "type": "PUT",
+          "desc": "замена уже существующего расписания преподавателя с идентификатором id"
+        },
+        {
+          "type": "DELETE",
+          "desc": "удаление расписания преподавателя с идентификатором id"
+        }
+      ],
+      "params": null
+    },
+    {
+      "path": "/api/v1/schedule/info/student_groups",
+      "methods": [
+        {
+          "type": "GET",
+          "desc": "получение всего списка расписаний групп"
+        },
+        {
+          "type": "POST",
+          "desc": "добавление нового расписания группы"
+        }
+      ],
+      "params": [
+        {
+          "name": "days",
+          "desc": "список дней, разделенные запятыми, которые должны быть в расписании",
+          "comments": [
+            "В структуре JSON дни, не входящие в этот список, имеют в поле \"lessons\" значение null"
+          ],
+          "example": "/api/v1/schedule/student_groups?days=monday,wednesday"
+        },
+        {
+          "name": "limit",
+          "desc": "количество записей",
+          "comments": null,
+          "example": "/api/v1/schedule/student_groups?limit=1"
+        },
+        {
+          "name": "offset",
+          "desc": "сколько записей от начала списка нужно пропустить",
+          "comments": [
+            "Только, если установлен параметр limit"
+          ],
+          "example": "/api/v1/schedule/student_groups?limit=1;offset=1"
+        }
+      ]
+    },
+    {
+      "path": "/api/v1/schedule/student_groups/{group_name}",
+      "methods": [
+        {
+          "type": "GET",
+          "desc": "получение расписание группы group_name"
+        },
+        {
+          "type": "PUT",
+          "desc": "замена уже существующего расписания группы group_name"
+        },
+        {
+          "type": "DELETE",
+          "desc": "удаление расписания группы group_name"
+        }
+      ],
+      "params": [
+        {
+          "name": "days",
+          "desc": "список дней, разделенные запятыми, которые должны быть в расписании",
+          "comments": [
+            "В структуре JSON дни, не входящие в этот список, имеют в поле \"lessons\" значение null"
+          ],
+          "example": "/api/v1/schedule/student_groups/ИУ5-31Б?days=monday,wednesday"
+        }
+      ]
+    },
+    {
+      "path": "/jokes",
+      "methods": [
+        {
+          "type": "GET",
+          "desc": "получение таблицы анекдотов"
+        }
+      ],
+      "params": null
+    },
+    {
+      "path": "/add_joke",
+      "methods": [
+        {
+          "type": "GET",
+          "desc": "получение формы для добавления нового анекдота"
+        },
+        {
+          "type": "POST",
+          "desc": "добавление нового анекдота из формы"
+        }
+      ],
+      "params": null
+    },
+    {
+      "path": "/api/v1/other_themes/info/jokes",
+      "methods": [
+        {
+          "type": "GET",
+          "desc": "получение списка анекдотов без текста (название категории)"
+        }
+      ],
+      "params": null
+    },
+    {
+      "path": "/api/v1/other_themes/jokes",
+      "methods": [
+        {
+          "type": "GET",
+          "desc": "получение всего списка анекдотов"
+        },
+        {
+          "type": "POST",
+          "desc": "добавление нового анекдота"
+        }
+      ],
+      "params": [
+        {
+          "name": "limit",
+          "desc": "количество записей",
+          "comments": null,
+          "example": "/api/v1/other_themes/jokes?limit=1"
+        },
+        {
+          "name": "offset",
+          "desc": "сколько записей от начала списка нужно пропустить",
+          "comments": [
+            "Только, если установлен параметр limit"
+          ],
+          "example": "/api/v1/other_themes/jokes?limit=1;offset=1"
+        }
+      ]
+    },
+    {
+      "path": "/api/v1/other_themes/jokes/{theme}",
+      "methods": [
+        {
+          "type": "GET",
+          "desc": "получение списка анекдотов по заданной категории"
+        }
+      ],
+      "params": [
+        {
+          "name": "limit",
+          "desc": "количество записей",
+          "comments": null,
+          "example": "/api/v1/other_themes/jokes/роботы?limit=1"
+        },
+        {
+          "name": "offset",
+          "desc": "сколько записей от начала списка нужно пропустить",
+          "comments": [
+            "Только, если установлен параметр limit"
+          ],
+          "example": "/api/v1/other_themes/jokes/роботы?limit=1;offset=1"
+        }
+      ]
+    },
+    {
+      "path": "/api/v1/other_themes/jokes/{id}",
+      "methods": [
+        {
+          "type": "PUT",
+          "desc": "замена уже существующего анекдота по его id"
+        },
+        {
+          "type": "DELETE",
+          "desc": "удаление уже существующего анекдота по его id"
+        }
+      ],
+      "params": null
+    }
+  ],
+  "structures": [
+    {
+      "header": "Структура JSON файла расписания преподавателя",
+      "comments": [
+        "Поле id присутствует только в ответе на запрос пользователя"
+      ],
+      "json": [
+        "{",
+        "\t\"id\": __id__(int),",
+        "\t\"firstname\": __name__(string),",
+        "\t\"surname\": __surname__(string),",
+        "\t\"patronymic\": __patronymic__(string),",
+        "\t\"chair\": __chair__(string),",
+        "\t\"week\": __week_object__(object)",
+        "}"
+      ]
+    },
+    {
+      "header": "Структура JSON файла расписания групп",
+      "comments": [
+        "Поле id присутствует только в ответе на запрос пользователя"
+      ],
+      "json": [
+        "{",
+        "\t\"id\": __id__(int),",
+        "\t\"group_name\": __group_name__(string)",
+        "\t\"week\": __week_object__(object)",
+        "}"
+      ]
+    },
+    {
+      "header": "Структура JSON объекта week",
+      "comments": null,
+      "json": [
+        "{",
+        "\t\"monday\": __day_object__(object),",
+        "\t\"tuesday\": __day_object__(object),",
+        "\t\"wednesday\": __day_object__(object),",
+        "\t\"thursday\": __day_object__(object),",
+        "\t\"friday\": __day_object__(object),",
+        "\t\"saturday\": __day_object__(object)",
+        "}"
+      ]
+    },
+    {
+      "header": "Структура JSON объекта day",
+      "comments": null,
+      "json": [
+        "{",
+        "\t\"lessons\": __lesson_object__(object),",
+        "}"
+      ]
+    },
+    {
+      "header": "Структура JSON объекта lesson",
+      "comments": [
+        "Поле time содержит временные рамки урока в виде начало - конец. Пример: \"8:30 - 10:05\""
+      ],
+      "json": [
+        "{",
+        "\t\"time\": __time__(string),",
+        "\t\"subject\": __subject_object__(object),",
+        "}"
+      ]
+    },
+    {
+      "header": "Структура JSON объекта subject",
+      "comments": [
+        "Поле numerator содержит название предмета и его кабинета по числителям. Пример: \"АСОИУ,501ю\"",
+        "Поле denominator содержит название предмета и его кабинета по знаметелям. Пример: \"Электротехника,502ю\"",
+        "Поле is_differ содержит информацию - отличаются ли предметы или кабинеты в числитель и знаменатель"
+      ],
+      "json": [
+        "{",
+        "\t\"numerator\": __numerator__(string),",
+        "\t\"denominator\": __denominator__(string),",
+        "\t\"is_differ\": __is_differ__(string),",
+        "}"
+      ]
+    },
+    {
+      "header": "Структура JSON объекта joke",
+      "comments": null,
+      "json": [
+        "{",
+        "\t\"id\": __id__(int),",
+        "\t\"theme\": __theme__(string),",
+        "\t\"body\": __text__(string),",
+        "}"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "header": "Пример расписания группы(расписание преподователя аналогично)",
+      "from": "/api/v1/schedule/student_groups?days=monday,wednesday;limit=1"
+    },
+    {
+      "header": "Пример joke",
+      "from": "/api/v1/other_themes/jokes?limit=1"
+    }
+  ]
+}
