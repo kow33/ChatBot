@@ -316,12 +316,12 @@
       ],
       "json": [
         "{",
-        "\t\"id\": __id__(int),",
-        "\t\"firstname\": __name__(string),",
-        "\t\"surname\": __surname__(string),",
-        "\t\"patronymic\": __patronymic__(string),",
-        "\t\"chair\": __chair__(string),",
-        "\t\"week\": __week_object__(object)",
+        "\"id\": __id__(int),",
+        "\"firstname\": __name__(string),",
+        "\"surname\": __surname__(string),",
+        "\"patronymic\": __patronymic__(string),",
+        "\"chair\": __chair__(string),",
+        "\"week\": __week_object__(object)",
         "}"
       ]
     },
@@ -332,9 +332,9 @@
       ],
       "json": [
         "{",
-        "\t\"id\": __id__(int),",
-        "\t\"group_name\": __group_name__(string)",
-        "\t\"week\": __week_object__(object)",
+        "\"id\": __id__(int),",
+        "\"group_name\": __group_name__(string)",
+        "\"week\": __week_object__(object)",
         "}"
       ]
     },
@@ -343,12 +343,12 @@
       "comments": null,
       "json": [
         "{",
-        "\t\"monday\": __day_object__(object),",
-        "\t\"tuesday\": __day_object__(object),",
-        "\t\"wednesday\": __day_object__(object),",
-        "\t\"thursday\": __day_object__(object),",
-        "\t\"friday\": __day_object__(object),",
-        "\t\"saturday\": __day_object__(object)",
+        "\"monday\": __day_object__(object),",
+        "\"tuesday\": __day_object__(object),",
+        "\"wednesday\": __day_object__(object),",
+        "\"thursday\": __day_object__(object),",
+        "\"friday\": __day_object__(object),",
+        "\"saturday\": __day_object__(object)",
         "}"
       ]
     },
@@ -357,7 +357,7 @@
       "comments": null,
       "json": [
         "{",
-        "\t\"lessons\": __lesson_object__(object),",
+        "\"lessons\": __lesson_object__(object),",
         "}"
       ]
     },
@@ -368,8 +368,8 @@
       ],
       "json": [
         "{",
-        "\t\"time\": __time__(string),",
-        "\t\"subject\": __subject_object__(object),",
+        "\"time\": __time__(string),",
+        "\"subject\": __subject_object__(object),",
         "}"
       ]
     },
@@ -382,9 +382,9 @@
       ],
       "json": [
         "{",
-        "\t\"numerator\": __numerator__(string),",
-        "\t\"denominator\": __denominator__(string),",
-        "\t\"is_differ\": __is_differ__(string),",
+        "\"numerator\": __numerator__(string),",
+        "\"denominator\": __denominator__(string),",
+        "\"is_differ\": __is_differ__(string),",
         "}"
       ]
     },
@@ -393,17 +393,17 @@
       "comments": null,
       "json": [
         "{",
-        "\t\"id\": __id__(int),",
-        "\t\"theme\": __theme__(string),",
-        "\t\"body\": __text__(string),",
+        "\"id\": __id__(int),",
+        "\"theme\": __theme__(string),",
+        "\"body\": __text__(string),",
         "}"
       ]
     }
   ],
   "examples": [
     {
-      "header": "Пример расписания группы(расписание преподователя аналогично)",
-      "from": "/api/v1/schedule/student_groups?days=monday,wednesday;limit=1"
+      "header": "Пример расписания преподавателя",
+      "from": "/api/v1/schedule/professors?days=monday,wednesday,friday;limit=1"
     },
     {
       "header": "Пример joke",
