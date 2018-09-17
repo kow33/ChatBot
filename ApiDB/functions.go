@@ -66,7 +66,7 @@ func LogHandlerFunc(h http.HandlerFunc) http.HandlerFunc {
 		log.Printf("\n" +
 			"Url: %s\n" +
 			"Method: %s\n\n",
-			r.URL, r.Method)
+			r.URL.Path, r.Method)
 		h.ServeHTTP(w, r)
 	}
 }
